@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#2f6bff" />
   <title>Life Shield</title>
+  <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="styles/reset.css" />
   <link rel="stylesheet" href="styles/main.css" />
 </head>
@@ -262,6 +264,11 @@
       <button class="bottom-nav__item" type="button" data-target="history">История</button>
       <button class="bottom-nav__item" type="button" data-target="settings">Настройки</button>
     </nav>
+  </div>
+
+  <div class="update-toast" role="status" aria-live="polite" data-update-toast hidden>
+    <span>Доступно обновление</span>
+    <button class="update-toast__button" type="button" data-update-action>Обновить</button>
   </div>
 
   <script type="module" src="core/app.js"></script>
