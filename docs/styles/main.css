@@ -535,6 +535,223 @@ body {
   border: 1px solid var(--border);
 }
 
+.stress {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stress__header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stress__intro {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.stress__snapshot-button {
+  align-self: flex-start;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.stress__baseline-card {
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 70%, var(--surface));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stress__baseline-card--empty {
+  text-align: center;
+  gap: 16px;
+}
+
+.stress__baseline-card h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.stress__baseline-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.stress__baseline-label {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.stress__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.stress__run-all {
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: none;
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.stress__scenarios {
+  display: grid;
+  gap: 12px;
+}
+
+.stress__card {
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  padding: 16px;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stress__card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stress__card-header h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+}
+
+.stress__card-header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.stress__card-button {
+  align-self: flex-start;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.stress__chart {
+  background: var(--bg);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stress__chart-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 60%, transparent);
+  width: calc(var(--stress-bar-level, 0.1) * 100%);
+  transition: width 0.2s ease;
+}
+
+.stress__chart-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.stress__result {
+  display: grid;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.stress__result-runway {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.stress__result-breakdown {
+  margin: 0;
+  color: var(--muted);
+}
+
+.stress__result-levers p {
+  margin: 0 0 6px;
+  font-weight: 600;
+}
+
+.stress__result-levers ul {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+}
+
+.stress__history {
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  padding: 12px 16px;
+  background: var(--surface);
+}
+
+.stress__history summary {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.stress__history-list {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.stress__history-item {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  background: var(--bg);
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.stress__history-item div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.stress__history-item p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.stress__history-empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
 @media (min-width: 640px) {
   .missions-day__header {
     flex-direction: row;
@@ -544,6 +761,12 @@ body {
 
   .missions-day__stats {
     min-width: 200px;
+  }
+
+  .stress__card-header {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
   }
 }
 
