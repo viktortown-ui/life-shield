@@ -2,11 +2,56 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Life Shield</title>
+  <link rel="stylesheet" href="styles/reset.css" />
+  <link rel="stylesheet" href="styles/main.css" />
 </head>
-<body style="font-family:system-ui;padding:20px;">
-  <h1>Life Shield</h1>
-  <p>Черновик. Скоро тут будет приложение.</p>
+<body data-theme="light">
+  <div class="app">
+    <header class="app__header">
+      <div>
+        <p class="app__eyebrow">Life Shield</p>
+        <h1 class="app__title">Личный щит устойчивости</h1>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Переключить тему">
+        <span aria-hidden="true">🌓</span>
+        Тема
+      </button>
+    </header>
+
+    <main class="app__content">
+      <section class="screen is-active" data-screen="shield">
+        <h2>Щит</h2>
+        <p class="screen__placeholder">Экран защиты и текущего состояния.</p>
+      </section>
+      <section class="screen" data-screen="missions">
+        <h2>Миссии</h2>
+        <p class="screen__placeholder">Список ключевых задач и действий.</p>
+      </section>
+      <section class="screen" data-screen="stress">
+        <h2>Стресс-тест</h2>
+        <p class="screen__placeholder">Подготовка к стресс-тесту и сценарии.</p>
+      </section>
+      <section class="screen" data-screen="history">
+        <h2>История</h2>
+        <p class="screen__placeholder">Динамика и важные события.</p>
+      </section>
+      <section class="screen" data-screen="settings">
+        <h2>Настройки</h2>
+        <p class="screen__placeholder">Настройте темы, уведомления и параметры.</p>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Основная навигация">
+      <button class="bottom-nav__item is-active" type="button" data-target="shield">Щит</button>
+      <button class="bottom-nav__item" type="button" data-target="missions">Миссии</button>
+      <button class="bottom-nav__item" type="button" data-target="stress">Стресс-тест</button>
+      <button class="bottom-nav__item" type="button" data-target="history">История</button>
+      <button class="bottom-nav__item" type="button" data-target="settings">Настройки</button>
+    </nav>
+  </div>
+
+  <script type="module" src="core/app.js"></script>
 </body>
 </html>
