@@ -22,29 +22,34 @@ const mergeTiles = (storedTiles = []) =>
 
 const parseStored = (raw) => {
   if (!raw) {
-    return DEFAULT_SHIELD_TILES;
+    return { tiles: DEFAULT_SHIELD_TILES, snapshot: null };
   }
   try {
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed)) {
-      return mergeTiles(parsed);
+      return { tiles: mergeTiles(parsed), snapshot: null };
     }
     if (parsed && Array.isArray(parsed.tiles)) {
-      return mergeTiles(parsed.tiles);
+      return { tiles: mergeTiles(parsed.tiles), snapshot: parsed.snapshot ?? null };
     }
-    return DEFAULT_SHIELD_TILES;
+    return { tiles: DEFAULT_SHIELD_TILES, snapshot: null };
   } catch (error) {
     console.warn('Не удалось прочитать снимок щита из хранилища', error);
-    return DEFAULT_SHIELD_TILES;
+    return { tiles: DEFAULT_SHIELD_TILES, snapshot: null };
   }
 };
 
 export const getShieldSnapshot = () => {
   const raw = localStorage.getItem(STORAGE_KEY);
-  return parseStored(raw);
+  return parseStored(raw).tiles;
 };
 
-export const setShieldSnapshot = (tiles) => {
+export const getShieldSnapshotData = () => {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  return parseStored(raw).snapshot;
+};
+
+export const setShieldSnapshot = (tiles, snapshot = null) => {
   const payload = Array.isArray(tiles) ? tiles : DEFAULT_SHIELD_TILES;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({ tiles: payload }));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ tiles: payload, snapshot }));
 };
