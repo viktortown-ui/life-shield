@@ -134,25 +134,41 @@
       <section class="screen" data-screen="missions">
         <h2>Миссии</h2>
         <p class="screen__placeholder" data-copy="missionsToasts"></p>
-        <form class="missions-form" data-missions-form>
-          <label class="missions-form__label" for="mission-input">Новая миссия</label>
-          <div class="missions-form__row">
-            <input
-              class="missions-form__input"
-              id="mission-input"
-              name="mission"
-              type="text"
-              placeholder="Например, 15 минут прогулки"
-              autocomplete="off"
-              maxlength="80"
-              required
-            />
-            <button class="missions-form__button" type="submit">Добавить</button>
+        <div class="missions-day" data-missions>
+          <div class="missions-day__card">
+            <div class="missions-day__header">
+              <div>
+                <p class="missions-day__kicker">Миссия дня</p>
+                <h3 class="missions-day__title" data-mission-title></h3>
+                <p class="missions-day__detail" data-mission-detail></p>
+              </div>
+              <div class="missions-day__stats">
+                <div class="missions-day__stat">
+                  <span class="missions-day__stat-label">XP</span>
+                  <strong data-mission-xp></strong>
+                </div>
+                <div class="missions-day__stat">
+                  <span class="missions-day__stat-label">Streak</span>
+                  <strong data-mission-streak></strong>
+                </div>
+              </div>
+            </div>
+            <div class="missions-day__meta">
+              <span class="missions-day__tag" data-mission-tile></span>
+              <span class="missions-day__tag" data-mission-bonus></span>
+            </div>
+            <p class="missions-day__line" data-mission-line></p>
+            <div class="missions-day__footer">
+              <span class="missions-day__status" data-mission-status></span>
+              <span class="missions-day__rerolls" data-mission-rerolls></span>
+            </div>
+            <div class="missions-day__actions">
+              <button class="missions-day__button" type="button" data-mission-complete>Выполнить</button>
+              <button class="missions-day__button missions-day__button--ghost" type="button" data-mission-reroll>
+                Другая миссия
+              </button>
+            </div>
           </div>
-        </form>
-        <div class="missions" data-missions>
-          <div class="missions__empty" data-missions-empty data-copy="emptyStates"></div>
-          <ul class="missions__list" data-missions-list></ul>
         </div>
       </section>
       <section class="screen" data-screen="stress">
