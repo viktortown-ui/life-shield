@@ -1,0 +1,131 @@
+:root {
+  color-scheme: light dark;
+}
+
+body[data-theme="light"] {
+  --bg: #f7f8fb;
+  --surface: #ffffff;
+  --text: #1c2434;
+  --muted: #5f6b7a;
+  --accent: #2f6bff;
+  --border: #e3e7ee;
+}
+
+body[data-theme="dark"] {
+  --bg: #101522;
+  --surface: #161c2d;
+  --text: #e8ecf3;
+  --muted: #a5afbf;
+  --accent: #6c8dff;
+  --border: #2a3145;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 72px;
+}
+
+.app__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 24px 20px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  gap: 16px;
+}
+
+.app__eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.app__title {
+  font-size: 20px;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.app__content {
+  flex: 1;
+  padding: 24px 20px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.screen {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.screen.is-active {
+  display: flex;
+}
+
+.screen__placeholder {
+  color: var(--muted);
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  padding: 10px 12px 16px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+.bottom-nav__item {
+  padding: 10px 8px;
+  border-radius: 12px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.bottom-nav__item.is-active {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+@media (min-width: 768px) {
+  .app {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .bottom-nav {
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 720px;
+    border-radius: 16px 16px 0 0;
+  }
+}
