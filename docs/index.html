@@ -24,7 +24,26 @@
     <main class="app__content">
       <section class="screen is-active" data-screen="shield">
         <h2>Щит</h2>
-        <p class="screen__placeholder" data-copy="snapshotTips"></p>
+        <div class="shield">
+          <div class="shield__summary">
+            <div class="shield__total-card">
+              <p class="shield__label">Общий индекс</p>
+              <p class="shield__total">
+                <span data-shield-total>0</span>
+                <span class="shield__total-max">/100</span>
+              </p>
+              <p class="shield__hint">Суммарный показатель по шести сферам.</p>
+            </div>
+            <button class="shield__snapshot-button" type="button" data-open-snapshot>
+              Сделать снимок (2 минуты)
+            </button>
+          </div>
+          <div class="shield__grid" data-shield-grid></div>
+        </div>
+      </section>
+      <section class="screen" data-screen="snapshot">
+        <h2>Снимок щита</h2>
+        <p class="screen__placeholder">Здесь будет быстрый опрос на 2 минуты.</p>
       </section>
       <section class="screen" data-screen="missions">
         <h2>Миссии</h2>

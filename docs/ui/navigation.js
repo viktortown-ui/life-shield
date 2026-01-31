@@ -1,7 +1,7 @@
 const SCREEN_SELECTOR = '[data-screen]';
 const NAV_SELECTOR = '.bottom-nav__item';
 
-const setActiveScreen = (target) => {
+export const setActiveScreen = (target) => {
   const screens = document.querySelectorAll(SCREEN_SELECTOR);
   screens.forEach((screen) => {
     screen.classList.toggle('is-active', screen.dataset.screen === target);
