@@ -7,6 +7,7 @@ import { initShield } from '../ui/shield.js';
 import { initSnapshot } from '../ui/snapshot.js';
 import { initStress } from '../ui/stress.js';
 import { initHistory } from '../ui/history.js';
+import { initPwa } from '../ui/pwa.js';
 
 initTheme();
 initNavigation();
@@ -17,3 +18,4 @@ initShield();
 initSnapshot();
 initStress();
 initHistory();
+initPwa();
