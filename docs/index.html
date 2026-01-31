@@ -13,6 +13,7 @@
       <div>
         <p class="app__eyebrow">Life Shield</p>
         <h1 class="app__title">Личный щит устойчивости</h1>
+        <p class="app__toast" data-copy="resultsToasts"></p>
       </div>
       <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Переключить тему">
         <span aria-hidden="true">🌓</span>
@@ -23,11 +24,11 @@
     <main class="app__content">
       <section class="screen is-active" data-screen="shield">
         <h2>Щит</h2>
-        <p class="screen__placeholder">Экран защиты и текущего состояния.</p>
+        <p class="screen__placeholder" data-copy="snapshotTips"></p>
       </section>
       <section class="screen" data-screen="missions">
         <h2>Миссии</h2>
-        <p class="screen__placeholder">Список ключевых задач и действий.</p>
+        <p class="screen__placeholder" data-copy="missionsToasts"></p>
         <form class="missions-form" data-missions-form>
           <label class="missions-form__label" for="mission-input">Новая миссия</label>
           <div class="missions-form__row">
@@ -45,15 +46,13 @@
           </div>
         </form>
         <div class="missions" data-missions>
-          <div class="missions__empty" data-missions-empty>
-            Пока нет миссий — добавьте первую, чтобы закрепить фокус дня.
-          </div>
+          <div class="missions__empty" data-missions-empty data-copy="emptyStates"></div>
           <ul class="missions__list" data-missions-list></ul>
         </div>
       </section>
       <section class="screen" data-screen="stress">
         <h2>Стресс-тест</h2>
-        <p class="screen__placeholder">Подготовка к стресс-тесту и сценарии.</p>
+        <p class="screen__placeholder" data-copy="stressTestJabs"></p>
       </section>
       <section class="screen" data-screen="history">
         <h2>История</h2>
@@ -61,7 +60,23 @@
       </section>
       <section class="screen" data-screen="settings">
         <h2>Настройки</h2>
-        <p class="screen__placeholder">Настройте темы, уведомления и параметры.</p>
+        <div class="settings-card">
+          <p class="settings-card__title">Тон коммуникации</p>
+          <div class="tone-toggle" role="radiogroup" aria-label="Тон сообщений">
+            <button class="tone-toggle__button" type="button" data-tone-option="soft" aria-pressed="false">
+              Мягко
+            </button>
+            <button class="tone-toggle__button" type="button" data-tone-option="sarcastic" aria-pressed="false">
+              Саркастично
+            </button>
+          </div>
+          <p class="settings-card__current">
+            Текущий тон: <strong data-tone-label>Мягко</strong>
+          </p>
+          <p class="settings-card__preview">
+            Пример: <span data-copy="onboardingJabs"></span>
+          </p>
+        </div>
       </section>
     </main>
 

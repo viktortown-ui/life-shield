@@ -53,6 +53,18 @@ body {
   font-size: 20px;
 }
 
+.app__toast {
+  margin-top: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent);
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .theme-toggle {
   display: inline-flex;
   align-items: center;
@@ -196,6 +208,51 @@ body {
 
 .missions__remove:hover {
   color: var(--accent);
+}
+
+.settings-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 70%, var(--surface));
+}
+
+.settings-card__title {
+  font-weight: 600;
+}
+
+.tone-toggle {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tone-toggle__button {
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.tone-toggle__button.is-active {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--accent);
+}
+
+.settings-card__current {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.settings-card__preview {
+  font-size: 14px;
+  color: var(--text);
 }
 
 .bottom-nav {
