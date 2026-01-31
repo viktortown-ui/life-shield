@@ -102,6 +102,113 @@ body {
   color: var(--muted);
 }
 
+.shield {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.shield__summary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.shield__total-card {
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 70%, var(--surface));
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.shield__label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.shield__total {
+  font-size: 32px;
+  font-weight: 700;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.shield__total-max {
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.shield__hint {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.shield__snapshot-button {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.shield__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.shield-card {
+  position: relative;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 120px;
+}
+
+.shield-card.is-weakest {
+  border-color: color-mix(in srgb, #ff9b5c 60%, var(--border));
+  background: color-mix(in srgb, #ff9b5c 18%, var(--surface));
+}
+
+.shield-card__badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 10px;
+  padding: 3px 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, #ff9b5c 30%, transparent);
+  color: color-mix(in srgb, #ff9b5c 60%, var(--text));
+  font-weight: 600;
+}
+
+.shield-card__title {
+  font-size: 14px;
+  margin: 0;
+}
+
+.shield-card__score {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.shield-card__note {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0;
+}
+
 .missions-form {
   display: flex;
   flex-direction: column;
@@ -285,6 +392,10 @@ body {
   .app {
     max-width: 720px;
     margin: 0 auto;
+  }
+
+  .shield__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .bottom-nav {
