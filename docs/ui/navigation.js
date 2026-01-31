@@ -1,5 +1,6 @@
 const SCREEN_SELECTOR = '[data-screen]';
 const NAV_SELECTOR = '.bottom-nav__item';
+const OVERLAY_SCREENS = new Set(['snapshot']);
 
 export const setActiveScreen = (target) => {
   const screens = document.querySelectorAll(SCREEN_SELECTOR);
@@ -11,6 +12,8 @@ export const setActiveScreen = (target) => {
   navItems.forEach((item) => {
     item.classList.toggle('is-active', item.dataset.target === target);
   });
+
+  document.body.classList.toggle('is-overlay-active', OVERLAY_SCREENS.has(target));
 };
 
 export const initNavigation = () => {

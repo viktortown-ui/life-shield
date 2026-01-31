@@ -32,16 +32,14 @@ const createTileCard = (tile, isWeakest) => {
   return card;
 };
 
-export const initShield = () => {
-  const screen = document.querySelector('[data-screen="shield"]');
-  if (!screen) {
-    return;
-  }
-  const grid = screen.querySelector('[data-shield-grid]');
-  const totalValue = screen.querySelector('[data-shield-total]');
-  const snapshotButton = screen.querySelector('[data-open-snapshot]');
+const shieldState = {
+  grid: null,
+  totalValue: null,
+  snapshotButton: null,
+};
 
-  if (!grid || !totalValue) {
+export const renderShield = () => {
+  if (!shieldState.grid || !shieldState.totalValue) {
     return;
   }
 
@@ -49,15 +47,31 @@ export const initShield = () => {
   const total = calculateShieldTotal(tiles);
   const weakestId = findWeakestTile(tiles);
 
-  totalValue.textContent = total.toString();
-  grid.innerHTML = '';
+  shieldState.totalValue.textContent = total.toString();
+  shieldState.grid.innerHTML = '';
   tiles.forEach((tile) => {
     const card = createTileCard(tile, tile.id === weakestId);
-    grid.appendChild(card);
+    shieldState.grid.appendChild(card);
   });
+};
 
-  if (snapshotButton) {
-    snapshotButton.addEventListener('click', () => {
+export const initShield = () => {
+  const screen = document.querySelector('[data-screen="shield"]');
+  if (!screen) {
+    return;
+  }
+  shieldState.grid = screen.querySelector('[data-shield-grid]');
+  shieldState.totalValue = screen.querySelector('[data-shield-total]');
+  shieldState.snapshotButton = screen.querySelector('[data-open-snapshot]');
+
+  if (!shieldState.grid || !shieldState.totalValue) {
+    return;
+  }
+
+  renderShield();
+
+  if (shieldState.snapshotButton) {
+    shieldState.snapshotButton.addEventListener('click', () => {
       setActiveScreen('snapshot');
     });
   }

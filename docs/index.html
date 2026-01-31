@@ -41,9 +41,95 @@
           <div class="shield__grid" data-shield-grid></div>
         </div>
       </section>
-      <section class="screen" data-screen="snapshot">
-        <h2>Снимок щита</h2>
-        <p class="screen__placeholder">Здесь будет быстрый опрос на 2 минуты.</p>
+      <section class="screen screen--overlay" data-screen="snapshot">
+        <div class="snapshot">
+          <header class="snapshot__header">
+            <button class="snapshot__back" type="button" data-close-snapshot>← Назад</button>
+            <div>
+              <p class="snapshot__eyebrow">Снимок (2 минуты)</p>
+              <h2 class="snapshot__title">Проверим базовые опоры</h2>
+              <p class="snapshot__subtitle">Заполни поля, чтобы пересчитать щит и получить 3 шага на неделю.</p>
+            </div>
+          </header>
+          <form class="snapshot__form" data-snapshot-form>
+            <div class="snapshot__section">
+              <h3 class="snapshot__section-title">Финансы</h3>
+              <div class="snapshot__grid">
+                <label class="snapshot__field">
+                  <span class="snapshot__label">Резерв (₽)</span>
+                  <input type="number" name="reserve" min="0" step="100" inputmode="numeric" required />
+                </label>
+                <label class="snapshot__field">
+                  <span class="snapshot__label">Обязательные расходы/мес (₽)</span>
+                  <input type="number" name="expenses" min="0" step="100" inputmode="numeric" required />
+                </label>
+                <label class="snapshot__field">
+                  <span class="snapshot__label">Доход/мес (₽)</span>
+                  <input type="number" name="income" min="0" step="100" inputmode="numeric" required />
+                </label>
+                <div class="snapshot__field">
+                  <span class="snapshot__label">Кол-во источников дохода</span>
+                  <div class="snapshot__options">
+                    <label class="snapshot__option">
+                      <input type="radio" name="incomeSources" value="1" checked />
+                      <span>1</span>
+                    </label>
+                    <label class="snapshot__option">
+                      <input type="radio" name="incomeSources" value="2" />
+                      <span>2</span>
+                    </label>
+                    <label class="snapshot__option">
+                      <input type="radio" name="incomeSources" value="3" />
+                      <span>3+</span>
+                    </label>
+                  </div>
+                </div>
+                <label class="snapshot__field snapshot__toggle">
+                  <input type="checkbox" name="hasCredits" data-credit-toggle />
+                  <span>Кредиты/платежи есть</span>
+                </label>
+                <label class="snapshot__field" data-credit-payment hidden>
+                  <span class="snapshot__label">Платёж/мес (₽)</span>
+                  <input type="number" name="creditPayment" min="0" step="100" inputmode="numeric" />
+                </label>
+              </div>
+            </div>
+
+            <div class="snapshot__section">
+              <h3 class="snapshot__section-title">Состояние</h3>
+              <div class="snapshot__sliders">
+                <label class="snapshot__slider">
+                  <span class="snapshot__label">Энергия: сколько сил на неделю</span>
+                  <input type="range" name="energy" min="0" max="10" step="1" value="6" />
+                  <span class="snapshot__value" data-range-value>6</span>
+                </label>
+                <label class="snapshot__slider">
+                  <span class="snapshot__label">Опора: на кого можно опереться</span>
+                  <input type="range" name="support" min="0" max="10" step="1" value="6" />
+                  <span class="snapshot__value" data-range-value>6</span>
+                </label>
+                <label class="snapshot__slider">
+                  <span class="snapshot__label">Гибкость: как быстро адаптируюсь</span>
+                  <input type="range" name="flexibility" min="0" max="10" step="1" value="6" />
+                  <span class="snapshot__value" data-range-value>6</span>
+                </label>
+              </div>
+            </div>
+
+            <button class="snapshot__submit" type="submit">Сохранить снимок</button>
+          </form>
+
+          <div class="snapshot__results" data-snapshot-results hidden>
+            <div class="snapshot__result-card">
+              <p class="snapshot__saved">Сохранено: <span data-snapshot-date></span></p>
+              <h3 class="snapshot__section-title">3 шага на неделю</h3>
+              <ul class="snapshot__steps" data-snapshot-steps></ul>
+              <button class="snapshot__stress" type="button" data-open-stress>
+                Прогнать стресс-тест
+              </button>
+            </div>
+          </div>
+        </div>
       </section>
       <section class="screen" data-screen="missions">
         <h2>Миссии</h2>
