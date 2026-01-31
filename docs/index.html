@@ -28,6 +28,28 @@
       <section class="screen" data-screen="missions">
         <h2>Миссии</h2>
         <p class="screen__placeholder">Список ключевых задач и действий.</p>
+        <form class="missions-form" data-missions-form>
+          <label class="missions-form__label" for="mission-input">Новая миссия</label>
+          <div class="missions-form__row">
+            <input
+              class="missions-form__input"
+              id="mission-input"
+              name="mission"
+              type="text"
+              placeholder="Например, 15 минут прогулки"
+              autocomplete="off"
+              maxlength="80"
+              required
+            />
+            <button class="missions-form__button" type="submit">Добавить</button>
+          </div>
+        </form>
+        <div class="missions" data-missions>
+          <div class="missions__empty" data-missions-empty>
+            Пока нет миссий — добавьте первую, чтобы закрепить фокус дня.
+          </div>
+          <ul class="missions__list" data-missions-list></ul>
+        </div>
       </section>
       <section class="screen" data-screen="stress">
         <h2>Стресс-тест</h2>

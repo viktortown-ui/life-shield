@@ -90,6 +90,114 @@ body {
   color: var(--muted);
 }
 
+.missions-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.missions-form__label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.missions-form__row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.missions-form__input {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  min-width: 0;
+}
+
+.missions-form__input:focus {
+  outline: 2px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  outline-offset: 1px;
+}
+
+.missions-form__button {
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 600;
+  border: none;
+}
+
+.missions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.missions__empty {
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px dashed var(--border);
+  color: var(--muted);
+  text-align: center;
+}
+
+.missions__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+.missions__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 80%, var(--surface));
+}
+
+.missions__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.missions__checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+.missions__text {
+  font-size: 14px;
+}
+
+.missions__checkbox:checked + .missions__text {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+.missions__remove {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.missions__remove:hover {
+  color: var(--accent);
+}
+
 .bottom-nav {
   position: fixed;
   bottom: 0;
