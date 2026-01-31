@@ -1,5 +1,9 @@
 :root {
   color-scheme: light dark;
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
 }
 
 body[data-theme="light"] {
@@ -29,14 +33,16 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-bottom: 72px;
+  padding-bottom: calc(72px + var(--safe-area-bottom));
 }
 
 .app__header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 24px 20px 16px;
+  padding: calc(24px + var(--safe-area-top))
+    calc(20px + var(--safe-area-right)) 16px
+    calc(20px + var(--safe-area-left));
   background: var(--surface);
   border-bottom: 1px solid var(--border);
   gap: 16px;
@@ -68,7 +74,7 @@ body {
 .update-toast {
   position: fixed;
   left: 50%;
-  bottom: 88px;
+  bottom: calc(88px + var(--safe-area-bottom));
   transform: translateX(-50%);
   background: var(--surface);
   border: 1px solid var(--border);
@@ -1015,7 +1021,9 @@ body {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 4px;
-  padding: 10px 12px 16px;
+  padding: 10px calc(12px + var(--safe-area-right))
+    calc(16px + var(--safe-area-bottom))
+    calc(12px + var(--safe-area-left));
   background: var(--surface);
   border-top: 1px solid var(--border);
 }
