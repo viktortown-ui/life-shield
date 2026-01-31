@@ -752,6 +752,165 @@ body {
   font-size: 13px;
 }
 
+.history {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.history__content {
+  display: grid;
+  gap: 16px;
+}
+
+.history__card {
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  padding: 16px;
+  background: var(--surface);
+  display: grid;
+  gap: 12px;
+}
+
+.history__card-header h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+
+.history__card-header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.history__chart {
+  display: grid;
+  gap: 8px;
+}
+
+.history__chart-svg {
+  width: 100%;
+  height: 120px;
+}
+
+.history__chart-area {
+  fill: url(#historyLine);
+}
+
+.history__chart-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.history__chart-dot {
+  fill: var(--surface);
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.history__chart-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.history__chart-latest {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.history__chart-empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.history__list {
+  display: grid;
+  gap: 10px;
+}
+
+.history__item {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 12px;
+  background: var(--bg);
+  display: grid;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.history__item-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-weight: 600;
+  flex-wrap: wrap;
+}
+
+.history__item-header div {
+  display: grid;
+  gap: 4px;
+}
+
+.history__item-header span {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.history__item-pill {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent);
+  font-size: 11px;
+  align-self: flex-start;
+}
+
+.history__item-list {
+  margin: 0;
+  padding-left: 16px;
+  display: grid;
+  gap: 6px;
+  color: var(--text);
+}
+
+.history__item-note {
+  margin: 0;
+  color: var(--muted);
+}
+
+.history__list-empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.history__empty {
+  border-radius: 16px;
+  border: 1px dashed var(--border);
+  padding: 20px;
+  text-align: center;
+  background: color-mix(in srgb, var(--bg) 70%, var(--surface));
+  display: grid;
+  gap: 8px;
+}
+
+.history__empty h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.history__empty-copy {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
 @media (min-width: 640px) {
   .missions-day__header {
     flex-direction: row;
@@ -767,6 +926,14 @@ body {
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
+  }
+
+  .history__content {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .history__card:first-child {
+    grid-column: 1 / -1;
   }
 }
 
