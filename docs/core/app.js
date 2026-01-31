@@ -6,6 +6,7 @@ import { initToneSettings } from '../ui/tone-settings.js';
 import { initShield } from '../ui/shield.js';
 import { initSnapshot } from '../ui/snapshot.js';
 import { initStress } from '../ui/stress.js';
+import { initHistory } from '../ui/history.js';
 
 initTheme();
 initNavigation();
@@ -15,3 +16,4 @@ initCopy();
 initShield();
 initSnapshot();
 initStress();
+initHistory();

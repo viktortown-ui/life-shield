@@ -197,7 +197,41 @@
       </section>
       <section class="screen" data-screen="history">
         <h2>История</h2>
-        <p class="screen__placeholder">Динамика и важные события.</p>
+        <div class="history">
+          <div class="history__empty" data-history-empty hidden>
+            <h3>Пока нет истории</h3>
+            <p class="history__empty-copy" data-copy="historyEmpty"></p>
+          </div>
+          <div class="history__content" data-history-content>
+            <article class="history__card">
+              <div class="history__card-header">
+                <div>
+                  <h3>Динамика индекса щита</h3>
+                  <p>Последние снимки с общим индексом 0–100.</p>
+                </div>
+              </div>
+              <div class="history__chart" data-history-chart></div>
+            </article>
+            <article class="history__card">
+              <div class="history__card-header">
+                <div>
+                  <h3>Последние снимки</h3>
+                  <p>Дата и самые заметные изменения.</p>
+                </div>
+              </div>
+              <div class="history__list" data-history-snapshots></div>
+            </article>
+            <article class="history__card">
+              <div class="history__card-header">
+                <div>
+                  <h3>Последние стресс-тесты</h3>
+                  <p>Сценарий и runway по последним прогонам.</p>
+                </div>
+              </div>
+              <div class="history__list" data-history-stress></div>
+            </article>
+          </div>
+        </div>
       </section>
       <section class="screen" data-screen="settings">
         <h2>Настройки</h2>
