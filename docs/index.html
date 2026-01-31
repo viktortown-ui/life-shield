@@ -172,8 +172,28 @@
         </div>
       </section>
       <section class="screen" data-screen="stress">
-        <h2>Стресс-тест</h2>
-        <p class="screen__placeholder" data-copy="stressTestJabs"></p>
+        <div class="stress">
+          <header class="stress__header">
+            <div>
+              <h2>Стресс-тест</h2>
+              <p class="stress__intro" data-copy="stressTestJabs"></p>
+            </div>
+            <button class="stress__snapshot-button" type="button" data-open-stress-snapshot>
+              Обновить данные
+            </button>
+          </header>
+          <div class="stress__baseline" data-stress-baseline></div>
+          <div class="stress__actions">
+            <button class="stress__run-all" type="button" data-stress-run-all>
+              Прогнать все сценарии
+            </button>
+          </div>
+          <div class="stress__scenarios" data-stress-scenarios></div>
+          <details class="stress__history" data-stress-history>
+            <summary>История прогонов</summary>
+            <div class="stress__history-list" data-stress-history-list></div>
+          </details>
+        </div>
       </section>
       <section class="screen" data-screen="history">
         <h2>История</h2>
