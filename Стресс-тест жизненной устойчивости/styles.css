@@ -1,0 +1,624 @@
+/* Стресс-тест жизни - Стили */
+
+/* Переменные и базовые настройки */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #34495e;
+    --accent-color: #3498db;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --light-gray: #f8f9fa;
+    --medium-gray: #e9ecef;
+    --dark-gray: #495057;
+    --text-color: #2c3e50;
+    --border-radius: 8px;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+    min-height: 100vh;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Шапка */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--dark-gray);
+    font-weight: 300;
+}
+
+/* Навигация */
+.nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.nav-btn {
+    padding: 12px 20px;
+    border: none;
+    background: var(--medium-gray);
+    color: var(--dark-gray);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.nav-btn:hover {
+    background: var(--accent-color);
+    color: white;
+}
+
+.nav-btn.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Экраны */
+.screen {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.screen h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.screen-subtitle {
+    text-align: center;
+    color: var(--dark-gray);
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+
+/* Формы */
+.form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--light-gray);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--medium-gray);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Кнопки */
+.btn {
+    padding: 14px 30px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: var(--accent-color);
+    color: white;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+.btn-secondary {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #2c3e50;
+}
+
+/* Сетка сценариев */
+.scenarios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.scenario-card {
+    background: white;
+    border: 2px solid var(--medium-gray);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+}
+
+.scenario-card:hover {
+    border-color: var(--accent-color);
+    transform: translateY(-5px);
+}
+
+.scenario-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.scenario-header h3 {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.scenario-params {
+    margin-top: 15px;
+}
+
+.scenario-params label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: var(--dark-gray);
+}
+
+/* Переключатели */
+.toggle {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--medium-gray);
+    transition: var(--transition);
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: var(--transition);
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--success-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Ползунки */
+.range-input {
+    width: 100%;
+    margin: 10px 0;
+    -webkit-appearance: none;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--medium-gray);
+    outline: none;
+}
+
+.range-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    cursor: pointer;
+}
+
+.range-input::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    cursor: pointer;
+    border: none;
+}
+
+/* График */
+.chart-container {
+    background: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+}
+
+.simulation-controls {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.simulation-controls select {
+    padding: 10px 15px;
+    border: 2px solid var(--medium-gray);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    background: white;
+}
+
+/* Таблицы */
+.tables-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.month-table {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.month-table h4 {
+    background: var(--primary-color);
+    color: white;
+    padding: 15px;
+    margin: 0;
+}
+
+.month-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.month-table th,
+.month-table td {
+    padding: 10px;
+    text-align: right;
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+.month-table th {
+    background: var(--light-gray);
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.month-table td.negative {
+    color: var(--danger-color);
+    font-weight: bold;
+}
+
+.month-table td.death-month {
+    background: rgba(231, 76, 60, 0.1);
+}
+
+/* Вердикт */
+.verdict-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.verdict-card {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 25px;
+    text-align: center;
+    border-left: 5px solid var(--medium-gray);
+}
+
+.verdict-card.green {
+    border-left-color: var(--success-color);
+}
+
+.verdict-card.yellow {
+    border-left-color: var(--warning-color);
+}
+
+.verdict-card.red {
+    border-left-color: var(--danger-color);
+}
+
+.verdict-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.survival-months {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.verdict-card.green .survival-months {
+    color: var(--success-color);
+}
+
+.verdict-card.yellow .survival-months {
+    color: var(--warning-color);
+}
+
+.verdict-card.red .survival-months {
+    color: var(--danger-color);
+}
+
+.verdict-card .status {
+    font-size: 0.9rem;
+    color: var(--dark-gray);
+}
+
+/* Индекс стресс-устойчивости */
+.stress-index {
+    text-align: center;
+    background: var(--light-gray);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    margin-bottom: 30px;
+}
+
+.stress-index h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.index-value {
+    margin-bottom: 20px;
+}
+
+.index-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    transition: var(--transition);
+}
+
+.index-circle.good {
+    background: var(--success-color);
+}
+
+.index-circle.medium {
+    background: var(--warning-color);
+}
+
+.index-circle.bad {
+    background: var(--danger-color);
+}
+
+.verdict-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.verdict-actions .btn {
+    width: auto;
+}
+
+/* История */
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.history-item {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: var(--transition);
+}
+
+.history-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.history-date {
+    font-size: 0.9rem;
+    color: var(--dark-gray);
+    margin-bottom: 5px;
+}
+
+.history-params {
+    font-size: 0.85rem;
+    color: var(--dark-gray);
+}
+
+.history-result {
+    text-align: right;
+}
+
+.history-index {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.history-index.good {
+    color: var(--success-color);
+}
+
+.history-index.medium {
+    color: var(--warning-color);
+}
+
+.history-index.bad {
+    color: var(--danger-color);
+}
+
+.load-btn {
+    background: var(--accent-color);
+    color: white;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .nav {
+        flex-direction: column;
+    }
+    
+    .nav-btn {
+        width: 100%;
+    }
+    
+    .scenarios-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .verdict-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .tables-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .verdict-actions {
+        flex-direction: column;
+    }
+    
+    .verdict-actions .btn {
+        width: 100%;
+    }
+}
+
+/* Вспомогательные классы */
+.text-center {
+    text-align: center;
+}
+
+.text-danger {
+    color: var(--danger-color);
+}
+
+.text-warning {
+    color: var(--warning-color);
+}
+
+.text-success {
+    color: var(--success-color);
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}

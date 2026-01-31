@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Стресс-тест жизненной устойчивости</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <header class="header">
+            <h1>Стресс-тест жизни</h1>
+            <p class="subtitle">На сколько месяцев тебя реально хватит?</p>
+        </header>
+
+        <!-- Навигация -->
+        <nav class="nav" id="nav">
+            <button class="nav-btn active" data-screen="input">1. Мои данные</button>
+            <button class="nav-btn" data-screen="scenarios">2. Сценарии</button>
+            <button class="nav-btn" data-screen="simulation">3. Симуляция</button>
+            <button class="nav-btn" data-screen="verdict">4. Вердикт</button>
+            <button class="nav-btn" data-screen="history">5. История</button>
+        </nav>
+
+        <!-- Экран 1: Ввод данных -->
+        <section class="screen active" id="input-screen">
+            <h2>Текущее положение</h2>
+            <p class="screen-subtitle">Укажи как есть, не идеально</p>
+            
+            <form class="form" id="data-form">
+                <div class="form-group">
+                    <label for="income">Ежемесячный доход (₽)</label>
+                    <input type="number" id="income" placeholder="Например, 80000" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="fixed-expenses">Обязательные расходы (₽)</label>
+                    <input type="number" id="fixed-expenses" placeholder="Квартплата, кредиты, еда" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="variable-expenses">Переменные расходы (₽)</label>
+                    <input type="number" id="variable-expenses" placeholder="Развлечения, покупки" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="savings">Финансовая подушка (₽)</label>
+                    <input type="number" id="savings" placeholder="Все накопления" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="debt">Долги (₽)</label>
+                    <input type="number" id="debt" placeholder="Опционально" min="0">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Перейти к сценариям</button>
+            </form>
+        </section>
+
+        <!-- Экран 2: Сценарии шока -->
+        <section class="screen" id="scenarios-screen">
+            <h2>Сценарии шока</h2>
+            <p class="screen-subtitle">Что может пойти не так</p>
+            
+            <div class="scenarios-grid">
+                <div class="scenario-card" data-scenario="base">
+                    <div class="scenario-header">
+                        <h3>🟢 Базовый</h3>
+                        <label class="toggle">
+                            <input type="checkbox" checked disabled>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p>Все остается как сейчас</p>
+                    <div class="scenario-params">
+                        <small>Доход: 100%, Расходы: 100%</small>
+                    </div>
+                </div>
+                
+                <div class="scenario-card" data-scenario="income-drop-30">
+                    <div class="scenario-header">
+                        <h3>🟡 Падение дохода</h3>
+                        <label class="toggle">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p>Потеря части дохода</p>
+                    <div class="scenario-params">
+                        <label>Доход: <input type="range" min="0" max="90" value="30" class="range-input"> -<span class="range-value">30</span>%</label>
+                    </div>
+                </div>
+                
+                <div class="scenario-card" data-scenario="income-drop-50">
+                    <div class="scenario-header">
+                        <h3>🔴 Потеря дохода</h3>
+                        <label class="toggle">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p>Серьезное сокращение</p>
+                    <div class="scenario-params">
+                        <label>Доход: <input type="range" min="0" max="90" value="50" class="range-input"> -<span class="range-value">50</span>%</label>
+                    </div>
+                </div>
+                
+                <div class="scenario-card" data-scenario="combined-shock">
+                    <div class="scenario-header">
+                        <h3>🔥 Комбинированный шок</h3>
+                        <label class="toggle">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p>Падение дохода + рост расходов</p>
+                    <div class="scenario-params">
+                        <label>Доход: <input type="range" id="combined-income" min="0" max="70" value="40" class="range-input"> -<span class="range-value">40</span>%</label>
+                        <label>Расходы: +<input type="range" id="combined-expenses" min="0" max="50" value="20" class="range-input"><span class="range-value">20</span>%</label>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn btn-primary" id="run-simulation">Запустить симуляцию</button>
+        </section>
+
+        <!-- Экран 3: Симуляция по месяцам -->
+        <section class="screen" id="simulation-screen">
+            <h2>Симуляция по месяцам</h2>
+            <p class="screen-subtitle">Как умирает подушка</p>
+            
+            <div class="simulation-controls">
+                <select id="scenario-select">
+                    <option value="all">Все сценарии</option>
+                </select>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="balance-chart"></canvas>
+            </div>
+            
+            <div class="tables-container" id="tables-container">
+                <!-- Таблицы будут сгенерированы JS -->
+            </div>
+        </section>
+
+        <!-- Экран 4: Вердикт -->
+        <section class="screen" id="verdict-screen">
+            <h2>Вердикт</h2>
+            <p class="screen-subtitle">Сколько ты проживешь в каждом сценарии</p>
+            
+            <div class="verdict-grid" id="verdict-grid">
+                <!-- Карточки будут сгенерированы JS -->
+            </div>
+            
+            <div class="stress-index" id="stress-index">
+                <h3>Индекс стресс-устойчивости</h3>
+                <div class="index-value">
+                    <div class="index-circle" id="index-circle">
+                        <span id="index-score">--</span>
+                    </div>
+                </div>
+                <p class="index-description" id="index-description"></p>
+            </div>
+            
+            <div class="verdict-actions">
+                <button class="btn btn-secondary" id="save-run">Сохранить прогон</button>
+                <button class="btn btn-primary" id="change-params">Изменить параметры</button>
+            </div>
+        </section>
+
+        <!-- Экран 5: История -->
+        <section class="screen" id="history-screen">
+            <h2>История прогонов</h2>
+            <p class="screen-subtitle">Как менялась твоя устойчивость</p>
+            
+            <div class="history-list" id="history-list">
+                <!-- История будет загружена из localStorage -->
+            </div>
+            
+            <div class="history-actions">
+                <button class="btn btn-secondary" id="clear-history">Очистить историю</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Скрипты -->
+    <script src="scenarios.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

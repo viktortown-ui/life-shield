@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нагрузка и выгорание</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.26.0/plotly.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Навигация -->
+        <nav class="nav">
+            <div class="nav-brand">Нагрузка и выгорание</div>
+            <div class="nav-steps">
+                <button class="nav-step active" data-screen="1">1</button>
+                <button class="nav-step" data-screen="2">2</button>
+                <button class="nav-step" data-screen="3">3</button>
+                <button class="nav-step" data-screen="4">4</button>
+                <button class="nav-step" data-screen="5">5</button>
+            </div>
+        </nav>
+
+        <!-- Экран 1: Распределение времени -->
+        <div id="screen-1" class="screen active">
+            <h1>Распределение времени</h1>
+            <p class="subtitle">Сколько часов в неделю вы тратите на:</p>
+            
+            <div class="time-inputs">
+                <div class="input-group">
+                    <label for="sleep">Сон</label>
+                    <input type="number" id="sleep" min="0" max="168" value="56" step="0.5">
+                    <span class="hours-label">часов</span>
+                </div>
+                
+                <div class="input-group">
+                    <label for="work">Работа</label>
+                    <input type="number" id="work" min="0" max="168" value="40" step="0.5">
+                    <span class="hours-label">часов</span>
+                </div>
+                
+                <div class="input-group">
+                    <label for="projects">Проекты</label>
+                    <input type="number" id="projects" min="0" max="168" value="10" step="0.5">
+                    <span class="hours-label">часов</span>
+                </div>
+                
+                <div class="input-group">
+                    <label for="household">Быт</label>
+                    <input type="number" id="household" min="0" max="168" value="20" step="0.5">
+                    <span class="hours-label">часов</span>
+                </div>
+                
+                <div class="input-group">
+                    <label for="family">Семья / Общение</label>
+                    <input type="number" id="family" min="0" max="168" value="15" step="0.5">
+                    <span class="hours-label">часов</span>
+                </div>
+                
+                <div class="input-group">
+                    <label for="recovery">Восстановление (спорт / отдых)</label>
+                    <input type="number" id="recovery" min="0" max="168" value="10" step="0.5">
+                    <span class="hours-label">часов</span>
+                </div>
+            </div>
+            
+            <div class="total-hours">
+                <div class="total-label">Всего часов в неделю:</div>
+                <div class="total-value" id="total-hours">151</div>
+                <div class="total-warning" id="total-warning"></div>
+            </div>
+            
+            <div class="chart-container">
+                <div id="time-chart"></div>
+            </div>
+            
+            <button class="btn-primary" onclick="nextScreen()">Далее</button>
+        </div>
+
+        <!-- Экран 2: Энергия и стресс -->
+        <div id="screen-2" class="screen">
+            <h1>Энергия и стресс</h1>
+            <p class="subtitle">Оцените, как вы себя чувствуете последние 2-3 недели</p>
+            
+            <div class="energy-inputs">
+                <div class="slider-group">
+                    <label for="energy">Субъективная энергия</label>
+                    <div class="slider-container">
+                        <input type="range" id="energy" min="1" max="5" value="3" step="0.5">
+                        <div class="slider-labels">
+                            <span>1 — Совсем нет сил</span>
+                            <span>5 — Полно энергии</span>
+                        </div>
+                        <div class="slider-value" id="energy-value">3</div>
+                    </div>
+                </div>
+                
+                <div class="slider-group">
+                    <label for="stress">Уровень хронического стресса</label>
+                    <div class="slider-container">
+                        <input type="range" id="stress" min="1" max="5" value="3" step="0.5">
+                        <div class="slider-labels">
+                            <span>1 — Спокоен</span>
+                            <span>5 — Постоянное напряжение</span>
+                        </div>
+                        <div class="slider-value" id="stress-value">3</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn-secondary" onclick="prevScreen()">Назад</button>
+                <button class="btn-primary" onclick="nextScreen()">Далее</button>
+            </div>
+        </div>
+
+        <!-- Экран 3: Нагрузка -->
+        <div id="screen-3" class="screen">
+            <h1>Нагрузка</h1>
+            <p class="subtitle">Расчёт на основе ваших данных</p>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Общий индекс нагрузки</div>
+                    <div class="metric-value" id="load-index">0</div>
+                    <div class="metric-description">Активные часы с учётом коэффициентов</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-label">Индекс восстановления</div>
+                    <div class="metric-value" id="recovery-index">0</div>
+                    <div class="metric-description">Сон + отдых с учётом коэффициентов</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-label">Коэффициент перегруза</div>
+                    <div class="metric-value" id="overload-ratio">0</div>
+                    <div class="metric-description">Нагрузка / Восстановление</div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <div id="load-chart"></div>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn-secondary" onclick="prevScreen()">Назад</button>
+                <button class="btn-primary" onclick="nextScreen()">Далее</button>
+            </div>
+        </div>
+
+        <!-- Экран 4: Риск выгорания -->
+        <div id="screen-4" class="screen">
+            <h1>Риск выгорания</h1>
+            <p class="subtitle">Этот режим жизни устойчив?</p>
+            
+            <div class="risk-indicator">
+                <div class="traffic-light">
+                    <div class="light light-green" id="light-green"></div>
+                    <div class="light light-yellow" id="light-yellow"></div>
+                    <div class="light light-red" id="light-red"></div>
+                </div>
+                
+                <div class="risk-text" id="risk-text">
+                    Расчёт риска...
+                </div>
+                
+                <div class="risk-score" id="risk-score">0%</div>
+            </div>
+            
+            <div class="risk-details">
+                <h3>Детали расчёта</h3>
+                <div class="risk-factors">
+                    <div class="risk-factor">
+                        <span>Перегруз по времени:</span>
+                        <span id="time-overload">0%</span>
+                    </div>
+                    <div class="risk-factor">
+                        <span>Дисбаланс энергии:</span>
+                        <span id="energy-imbalance">0%</span>
+                    </div>
+                    <div class="risk-factor">
+                        <span>Недостаток восстановления:</span>
+                        <span id="recovery-deficit">0%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn-secondary" onclick="prevScreen()">Назад</button>
+                <button class="btn-primary" onclick="saveResult()">Сохранить результат</button>
+            </div>
+        </div>
+
+        <!-- Экран 5: История -->
+        <div id="screen-5" class="screen">
+            <h1>История</h1>
+            <p class="subtitle">Ваши расчёты за последнее время</p>
+            
+            <div class="history-container" id="history-container">
+                <div class="history-empty">История пуста. Сохраните первый расчёт.</div>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn-secondary" onclick="prevScreen()">Назад</button>
+                <button class="btn-primary" onclick="startNew()">Новый расчёт</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Дисклеймер -->
+    <footer class="disclaimer">
+        <div class="disclaimer-content">
+            <h4>Важно понимать</h4>
+            <ul>
+                <li>Эта модель упрощённая и не учитывает множество индивидуальных факторов</li>
+                <li>Все данные субъективны и зависят от вашей самооценки</li>
+                <li>Это не медицинский диагноз и не заменяет консультацию специалиста</li>
+                <li>Инструмент создан для осознания своей загруженности и поиска баланса</li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="charts.js"></script>
+    <script src="storage.js"></script>
+</body>
+</html>

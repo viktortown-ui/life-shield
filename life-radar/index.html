@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Радар жизненной устойчивости</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Экран 0: Вход и профиль -->
+    <div id="screen-welcome" class="screen active">
+        <div class="container">
+            <h1>Радар жизненной устойчивости</h1>
+            <p class="subtitle">Инструмент наблюдения за изменениями в жизни</p>
+            
+            <div class="welcome-form">
+                <input type="text" id="user-name" placeholder="Ваше имя или псевдоним" class="input-text">
+                <button id="start-btn" class="btn-primary">Начать новый снимок</button>
+                <button id="continue-btn" class="btn-secondary" style="display: none;">Продолжить</button>
+            </div>
+            
+            <div id="history-preview" class="history-preview">
+                <h3>История снимков</h3>
+                <div id="history-list" class="history-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Экран 1: Снимок состояния -->
+    <div id="screen-assessment" class="screen">
+        <div class="container">
+            <div class="header">
+                <h2>Снимок состояния</h2>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+                <span id="progress-text" class="progress-text">0 из 24 вопросов</span>
+            </div>
+            
+            <div id="assessment-content" class="assessment-content">
+                <!-- Карточки сфер будут сгенерированы JS -->
+            </div>
+            
+            <div class="navigation">
+                <button id="back-to-welcome" class="btn-secondary">Назад</button>
+                <button id="to-weights" class="btn-primary" disabled>Далее</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Экран 2: Важность сфер -->
+    <div id="screen-weights" class="screen">
+        <div class="container">
+            <h2>Важность сфер</h2>
+            <p class="subtitle">Что для вас важнее сейчас?</p>
+            
+            <div id="weights-content" class="weights-content">
+                <!-- Ползунки весов будут сгенерированы JS -->
+            </div>
+            
+            <div class="navigation">
+                <button id="back-to-assessment" class="btn-secondary">Назад</button>
+                <button id="to-radar" class="btn-primary">Построить радар</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Экран 3: Радар и индексы -->
+    <div id="screen-radar" class="screen">
+        <div class="container">
+            <h2>Ваш радар жизненной устойчивости</h2>
+            <p id="radar-date" class="subtitle"></p>
+            
+            <div class="radar-container">
+                <canvas id="radar-chart" width="400" height="400"></canvas>
+                <div class="total-index">
+                    <span class="total-index-label">Общий индекс</span>
+                    <span id="total-index-value" class="total-index-value">--</span>
+                </div>
+            </div>
+            
+            <div id="subindexes-list" class="subindexes-list">
+                <!-- Список подиндексов будет сгенерирован JS -->
+            </div>
+            
+            <div class="navigation">
+                <button id="back-to-weights" class="btn-secondary">Назад</button>
+                <button id="to-interpretation" class="btn-primary">Интерпретация</button>
+                <button id="save-snapshot" class="btn-primary">Сохранить снимок</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Экран 4: Интерпретация -->
+    <div id="screen-interpretation" class="screen">
+        <div class="container">
+            <h2>Интерпретация</h2>
+            
+            <div class="interpretation-content">
+                <div id="stable-zones" class="zone-section">
+                    <h3 class="zone-title green">Стабильные зоны</h3>
+                    <div id="stable-list" class="zone-list"></div>
+                </div>
+                
+                <div id="attention-zones" class="zone-section">
+                    <h3 class="zone-title yellow">Зоны внимания</h3>
+                    <div id="attention-list" class="zone-list"></div>
+                </div>
+                
+                <div id="risk-zones" class="zone-section">
+                    <h3 class="zone-title red">Зоны риска</h3>
+                    <div id="risk-list" class="zone-list"></div>
+                </div>
+            </div>
+            
+            <div id="priorities" class="priorities">
+                <h3>Направления внимания</h3>
+                <div id="priorities-list" class="priorities-list"></div>
+            </div>
+            
+            <div class="disclaimer">
+                <p>Эта оценка основана на ваших субъективных ощущениях. Она не заменяет профессиональную консультацию.</p>
+            </div>
+            
+            <div class="navigation">
+                <button id="back-to-radar" class="btn-secondary">Назад</button>
+                <button id="to-history" class="btn-primary">История</button>
+                <button id="new-snapshot" class="btn-primary">Новый снимок</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Экран 5: История (динамика) -->
+    <div id="screen-history" class="screen">
+        <div class="container">
+            <h2>История изменений</h2>
+            
+            <div class="history-controls">
+                <button id="show-chart" class="btn-secondary active">График</button>
+                <button id="show-table" class="btn-secondary">Таблица</button>
+            </div>
+            
+            <div id="chart-view" class="chart-view">
+                <canvas id="trends-chart" width="600" height="300"></canvas>
+            </div>
+            
+            <div id="table-view" class="table-view" style="display: none;">
+                <table id="history-table" class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Индекс</th>
+                            <th>Изменение</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-table-body">
+                        <!-- Строки будут сгенерированы JS -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="snapshot-details" class="snapshot-details" style="display: none;">
+                <h3>Детали снимка</h3>
+                <div id="snapshot-content"></div>
+                <button id="close-details" class="btn-secondary">Закрыть</button>
+            </div>
+            
+            <div class="navigation">
+                <button id="back-to-interpretation" class="btn-secondary">Назад</button>
+                <button id="to-welcome" class="btn-primary">На главную</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="calculator.js"></script>
+    <script src="radar.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
