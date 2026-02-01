@@ -9,6 +9,8 @@ import { initStress } from '../ui/stress.js';
 import { initHistory } from '../ui/history.js';
 import { initPwa } from '../ui/pwa.js';
 import { initServiceSettings } from '../ui/service-settings.js';
+import { initHelp } from '../ui/help.js';
+import { initGuide } from '../ui/guide.js';
 
 initTheme();
 initNavigation();
@@ -21,3 +23,5 @@ initStress();
 initHistory();
 initPwa();
 initServiceSettings();
+initHelp();
+initGuide();

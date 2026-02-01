@@ -24,24 +24,24 @@
         <h2>Щит</h2>
         <div class="shield">
           <div class="shield__summary">
-            <details class="shield__total-card" data-shield-summary>
-              <summary class="shield__total-summary">
+            <div class="shield__total-card">
+              <div class="shield__total-summary" role="button" tabindex="0" data-open-breakdown>
                 <div class="shield__total-main">
-                  <p class="shield__label">Общий индекс</p>
+                  <div class="shield__label-row">
+                    <p class="shield__label">Общий индекс</p>
+                    <button class="help-button" type="button" data-help="index" aria-label="Подсказка: общий индекс">
+                      ⓘ
+                    </button>
+                  </div>
                   <p class="shield__total">
                     <span data-shield-total>0</span>
                     <span class="shield__total-max">/100</span>
                   </p>
                   <p class="shield__hint">Суммарный показатель по шести сферам.</p>
                 </div>
-                <span class="shield__total-toggle">Что внутри</span>
-              </summary>
-              <div class="shield__total-details">
-                <p class="shield__total-explainer">Индекс = агрегат 6 плиток щита. Он показывает, насколько устойчиво проходит неделя.</p>
-                <p class="shield__total-subtitle">Текущие значения плиток:</p>
-                <ul class="shield__total-list" data-shield-breakdown></ul>
+                <span class="shield__total-toggle">Разбор →</span>
               </div>
-            </details>
+            </div>
             <button class="shield__snapshot-button" type="button" data-open-snapshot>
               Сделать снимок (2 минуты)
             </button>
@@ -69,19 +69,39 @@
               <h3 class="snapshot__section-title">Финансы</h3>
               <div class="snapshot__grid">
                 <label class="snapshot__field">
-                  <span class="snapshot__label">Резерв (₽)</span>
+                  <span class="snapshot__label-row">
+                    <span class="snapshot__label">Резерв (₽)</span>
+                    <button class="help-button" type="button" data-help="reserve" aria-label="Подсказка: резерв">
+                      ⓘ
+                    </button>
+                  </span>
                   <input type="number" name="reserve" min="0" step="100" inputmode="numeric" required />
                 </label>
                 <label class="snapshot__field">
-                  <span class="snapshot__label">Обязательные расходы/мес (₽)</span>
+                  <span class="snapshot__label-row">
+                    <span class="snapshot__label">Обязательные расходы/мес (₽)</span>
+                    <button class="help-button" type="button" data-help="expenses" aria-label="Подсказка: расходы">
+                      ⓘ
+                    </button>
+                  </span>
                   <input type="number" name="expenses" min="0" step="100" inputmode="numeric" required />
                 </label>
                 <label class="snapshot__field">
-                  <span class="snapshot__label">Доход/мес (₽)</span>
+                  <span class="snapshot__label-row">
+                    <span class="snapshot__label">Доход/мес (₽)</span>
+                    <button class="help-button" type="button" data-help="income" aria-label="Подсказка: доход">
+                      ⓘ
+                    </button>
+                  </span>
                   <input type="number" name="income" min="0" step="100" inputmode="numeric" required />
                 </label>
                 <div class="snapshot__field">
-                  <span class="snapshot__label">Кол-во источников дохода</span>
+                  <span class="snapshot__label-row">
+                    <span class="snapshot__label">Кол-во источников дохода</span>
+                    <button class="help-button" type="button" data-help="incomeSources" aria-label="Подсказка: источники дохода">
+                      ⓘ
+                    </button>
+                  </span>
                   <div class="snapshot__options">
                     <label class="snapshot__option">
                       <input type="radio" name="incomeSources" value="1" checked />
@@ -99,10 +119,23 @@
                 </div>
                 <label class="snapshot__field snapshot__toggle">
                   <input type="checkbox" name="hasCredits" data-credit-toggle />
-                  <span>Кредиты/платежи есть</span>
+                  <span class="snapshot__toggle-text">Кредиты/платежи есть</span>
+                  <button
+                    class="help-button help-button--inline"
+                    type="button"
+                    data-help="credits"
+                    aria-label="Подсказка: кредиты"
+                  >
+                    ⓘ
+                  </button>
                 </label>
                 <label class="snapshot__field" data-credit-payment hidden>
-                  <span class="snapshot__label">Платёж/мес (₽)</span>
+                  <span class="snapshot__label-row">
+                    <span class="snapshot__label">Платёж/мес (₽)</span>
+                    <button class="help-button" type="button" data-help="creditPayment" aria-label="Подсказка: платёж">
+                      ⓘ
+                    </button>
+                  </span>
                   <input type="number" name="creditPayment" min="0" step="100" inputmode="numeric" />
                 </label>
               </div>
@@ -112,7 +145,12 @@
               <h3 class="snapshot__section-title">Состояние</h3>
               <div class="snapshot__sliders">
                 <div class="snapshot__slider">
-                  <span class="snapshot__label" id="snapshot-energy-label">Энергия: сколько сил на неделю</span>
+                  <span class="snapshot__label-row">
+                    <span class="snapshot__label" id="snapshot-energy-label">Энергия: сколько сил на неделю</span>
+                    <button class="help-button" type="button" data-help="energy" aria-label="Подсказка: энергия">
+                      ⓘ
+                    </button>
+                  </span>
                   <div class="snapshot__range">
                     <input
                       type="range"
@@ -131,7 +169,12 @@
                   </details>
                 </div>
                 <div class="snapshot__slider">
-                  <span class="snapshot__label" id="snapshot-support-label">Опора: на кого можно опереться</span>
+                  <span class="snapshot__label-row">
+                    <span class="snapshot__label" id="snapshot-support-label">Опора: на кого можно опереться</span>
+                    <button class="help-button" type="button" data-help="support" aria-label="Подсказка: опора">
+                      ⓘ
+                    </button>
+                  </span>
                   <div class="snapshot__range">
                     <input
                       type="range"
@@ -150,9 +193,14 @@
                   </details>
                 </div>
                 <div class="snapshot__slider">
-                  <span class="snapshot__label" id="snapshot-flexibility-label"
-                    >Гибкость: как быстро адаптируюсь</span
-                  >
+                  <span class="snapshot__label-row">
+                    <span class="snapshot__label" id="snapshot-flexibility-label"
+                      >Гибкость: как быстро адаптируюсь</span
+                    >
+                    <button class="help-button" type="button" data-help="flexibility" aria-label="Подсказка: гибкость">
+                      ⓘ
+                    </button>
+                  </span>
                   <div class="snapshot__range">
                     <input
                       type="range"
@@ -249,6 +297,12 @@
               Прогнать все сценарии
             </button>
           </div>
+          <div class="stress__section-title">
+            <h3>Сценарии</h3>
+            <button class="help-button" type="button" data-help="stressScenarios" aria-label="Подсказка: сценарии">
+              ⓘ
+            </button>
+          </div>
           <div class="stress__scenarios" data-stress-scenarios></div>
           <details class="stress__history" data-stress-history>
             <summary>История прогонов</summary>
@@ -329,6 +383,11 @@
           </p>
         </div>
         <div class="settings-card">
+          <p class="settings-card__title">Гайд</p>
+          <p class="settings-card__hint">Короткая инструкция без занудства.</p>
+          <button class="settings-action" type="button" data-open-guide>Как это работает</button>
+        </div>
+        <div class="settings-card">
           <p class="settings-card__title">Maintenance</p>
           <div class="settings-card__actions">
             <button class="settings-action" type="button" data-check-update>Проверить обновление</button>
@@ -340,6 +399,19 @@
           <p class="settings-card__hint">
             Данные хранятся локально. Очистка данных сайта в браузере может их удалить.
           </p>
+        </div>
+      </section>
+      <section class="screen screen--overlay" data-screen="guide">
+        <div class="guide">
+          <header class="guide__header">
+            <button class="guide__back" type="button" data-close-guide>← Назад</button>
+            <div>
+              <p class="guide__eyebrow">Гайд</p>
+              <h2>Как это работает</h2>
+              <p class="guide__subtitle">Коротко, честно и без эзотерики.</p>
+            </div>
+          </header>
+          <div class="guide__accordion" data-guide-accordion></div>
         </div>
       </section>
     </main>
@@ -359,6 +431,48 @@
     <button class="update-toast__button update-toast__button--ghost" type="button" data-update-dismiss>
       Позже
     </button>
+  </div>
+
+  <div class="sheet" data-sheet="help" hidden>
+    <div class="sheet__backdrop" data-sheet-close></div>
+    <div class="sheet__panel" role="dialog" aria-modal="true" aria-labelledby="help-sheet-title">
+      <button class="sheet__close" type="button" data-sheet-close aria-label="Закрыть">✕</button>
+      <div class="sheet__content">
+        <p class="sheet__eyebrow">Подсказка</p>
+        <h3 id="help-sheet-title" data-help-title></h3>
+        <div class="sheet__body" data-help-body></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet" data-sheet="breakdown" hidden>
+    <div class="sheet__backdrop" data-sheet-close></div>
+    <div class="sheet__panel" role="dialog" aria-modal="true" aria-labelledby="breakdown-sheet-title">
+      <button class="sheet__close" type="button" data-sheet-close aria-label="Закрыть">✕</button>
+      <div class="sheet__content">
+        <p class="sheet__eyebrow">Разбор</p>
+        <h3 id="breakdown-sheet-title" data-breakdown-title></h3>
+        <p class="sheet__intro" data-breakdown-intro></p>
+        <ul class="breakdown__list" data-breakdown-list></ul>
+        <div class="breakdown__highlights">
+          <div>
+            <p class="breakdown__label" data-breakdown-weak-label></p>
+            <ul class="breakdown__pill-list" data-breakdown-weak></ul>
+          </div>
+          <div>
+            <p class="breakdown__label" data-breakdown-strong-label></p>
+            <ul class="breakdown__pill-list" data-breakdown-strong></ul>
+          </div>
+        </div>
+        <div class="breakdown__actions">
+          <div>
+            <p class="breakdown__label" data-breakdown-actions-title></p>
+            <p class="breakdown__hint" data-breakdown-actions-subtitle></p>
+          </div>
+          <ul data-breakdown-actions></ul>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script type="module" src="core/app.js"></script>

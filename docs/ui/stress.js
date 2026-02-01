@@ -188,7 +188,12 @@ const renderBaseline = (container, snapshot, copyData) => {
           <strong>${formatNumber(snapshot.income)} ₽</strong>
         </div>
         <div>
-          <p class="stress__baseline-label">Runway</p>
+          <p class="stress__baseline-label">
+            Runway
+            <button class="help-button help-button--inline" type="button" data-help="runway" aria-label="Подсказка: runway">
+              ⓘ
+            </button>
+          </p>
           <strong>${formatMonths(baselineResult.runway)} мес.</strong>
         </div>
       </div>
@@ -232,7 +237,13 @@ const createScenarioCard = (scenario) => {
       </div>
     </div>
     <div class="stress__result">
-      <p class="stress__result-runway">Runway: <strong data-stress-runway>—</strong> мес.</p>
+      <p class="stress__result-runway">
+        <span>Runway</span>
+        <button class="help-button help-button--inline" type="button" data-help="runway" aria-label="Подсказка: runway">
+          ⓘ
+        </button>
+        <strong data-stress-runway>—</strong> мес.
+      </p>
       <p class="stress__result-breakdown" data-stress-breakdown>Что сломалось: —</p>
       <div class="stress__result-meta">
         <div>
