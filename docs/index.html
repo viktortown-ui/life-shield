@@ -24,19 +24,34 @@
         <h2>Щит</h2>
         <div class="shield">
           <div class="shield__summary">
-            <div class="shield__total-card">
-              <p class="shield__label">Общий индекс</p>
-              <p class="shield__total">
-                <span data-shield-total>0</span>
-                <span class="shield__total-max">/100</span>
-              </p>
-              <p class="shield__hint">Суммарный показатель по шести сферам.</p>
-            </div>
+            <details class="shield__total-card" data-shield-summary>
+              <summary class="shield__total-summary">
+                <div class="shield__total-main">
+                  <p class="shield__label">Общий индекс</p>
+                  <p class="shield__total">
+                    <span data-shield-total>0</span>
+                    <span class="shield__total-max">/100</span>
+                  </p>
+                  <p class="shield__hint">Суммарный показатель по шести сферам.</p>
+                </div>
+                <span class="shield__total-toggle">Что внутри</span>
+              </summary>
+              <div class="shield__total-details">
+                <p class="shield__total-explainer">Индекс = агрегат 6 плиток щита. Он показывает, насколько устойчиво проходит неделя.</p>
+                <p class="shield__total-subtitle">Текущие значения плиток:</p>
+                <ul class="shield__total-list" data-shield-breakdown></ul>
+              </div>
+            </details>
             <button class="shield__snapshot-button" type="button" data-open-snapshot>
               Сделать снимок (2 минуты)
             </button>
           </div>
           <div class="shield__grid" data-shield-grid></div>
+          <div class="shield__goal" data-shield-goal>
+            <p class="shield__goal-label">Цель недели</p>
+            <p class="shield__goal-title" data-shield-goal-title></p>
+            <p class="shield__goal-step" data-shield-goal-step></p>
+          </div>
         </div>
       </section>
       <section class="screen screen--overlay" data-screen="snapshot">

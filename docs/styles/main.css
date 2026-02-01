@@ -198,13 +198,51 @@ body {
 }
 
 .shield__total-card {
-  padding: 16px;
   border-radius: 16px;
   border: 1px solid var(--border);
   background: color-mix(in srgb, var(--bg) 70%, var(--surface));
+  overflow: hidden;
+}
+
+.shield__total-summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.shield__total-summary::-webkit-details-marker {
+  display: none;
+}
+
+.shield__total-main {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  flex: 1;
+}
+
+.shield__total-toggle {
+  align-self: flex-start;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.shield__total-toggle::after {
+  content: '▾';
+  font-size: 12px;
+  transition: transform 0.2s ease;
+}
+
+.shield__total-card[open] .shield__total-toggle::after {
+  transform: rotate(180deg);
 }
 
 .shield__label {
@@ -231,6 +269,47 @@ body {
   color: var(--muted);
 }
 
+.shield__total-details {
+  padding: 12px 16px 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.shield__total-explainer {
+  margin: 0;
+  color: var(--text);
+}
+
+.shield__total-subtitle {
+  margin: 0;
+  color: var(--muted);
+}
+
+.shield__total-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.shield__total-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.shield__total-score {
+  font-weight: 600;
+  color: var(--text);
+}
+
 .shield__snapshot-button {
   width: 100%;
   padding: 12px 16px;
@@ -245,6 +324,35 @@ body {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
+}
+
+.shield__goal {
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.shield__goal-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.shield__goal-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.shield__goal-step {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
 }
 
 .snapshot {
