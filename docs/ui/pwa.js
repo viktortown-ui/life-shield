@@ -1,17 +1,20 @@
 const UPDATE_TOAST_SELECTOR = '[data-update-toast]';
 const UPDATE_ACTION_SELECTOR = '[data-update-action]';
+const UPDATE_DISMISS_SELECTOR = '[data-update-dismiss]';
+const UPDATE_DISMISS_KEY = 'life-shield-update-dismissed';
 
 let updateRequested = false;
 
 const getUpdateToast = () => {
   const toast = document.querySelector(UPDATE_TOAST_SELECTOR);
   const button = toast?.querySelector(UPDATE_ACTION_SELECTOR);
+  const dismissButton = toast?.querySelector(UPDATE_DISMISS_SELECTOR);
 
-  if (!toast || !button) {
+  if (!toast || !button || !dismissButton) {
     return null;
   }
 
-  return { toast, button };
+  return { toast, button, dismissButton };
 };
 
 const hideUpdateToast = () => {
@@ -22,7 +25,11 @@ const hideUpdateToast = () => {
 };
 
 const showUpdateToast = (registration) => {
-  if (!registration.waiting) {
+  if (!registration.waiting || !navigator.serviceWorker.controller) {
+    return;
+  }
+
+  if (sessionStorage.getItem(UPDATE_DISMISS_KEY) === '1') {
     return;
   }
 
@@ -31,7 +38,7 @@ const showUpdateToast = (registration) => {
     return;
   }
 
-  const { toast, button } = elements;
+  const { toast, button, dismissButton } = elements;
   toast.hidden = false;
 
   button.addEventListener(
@@ -43,7 +50,17 @@ const showUpdateToast = (registration) => {
       }
 
       updateRequested = true;
+      sessionStorage.removeItem(UPDATE_DISMISS_KEY);
       waitingWorker.postMessage({ type: 'SKIP_WAITING' });
+    },
+    { once: true }
+  );
+
+  dismissButton.addEventListener(
+    'click',
+    () => {
+      sessionStorage.setItem(UPDATE_DISMISS_KEY, '1');
+      hideUpdateToast();
     },
     { once: true }
   );

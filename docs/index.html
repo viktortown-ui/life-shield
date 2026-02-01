@@ -328,21 +328,19 @@
             Пример: <span data-copy="onboardingJabs"></span>
           </p>
         </div>
-        <details class="settings-details">
-          <summary class="settings-details__summary">PRO: Сервис</summary>
-          <div class="settings-details__body">
-            <div class="settings-card">
-              <p class="settings-card__title">Сервис</p>
-              <p class="settings-card__hint">Сбросит только данные Life Shield, не трогая другие сайты.</p>
-              <button class="settings-action settings-action--danger" type="button" data-reset-storage>
-                Сбросить данные
-              </button>
-              <p class="settings-card__hint settings-card__hint--inline">
-                Диагностика: <span data-sw-status>—</span>
-              </p>
-            </div>
+        <div class="settings-card">
+          <p class="settings-card__title">Maintenance</p>
+          <div class="settings-card__actions">
+            <button class="settings-action" type="button" data-check-update>Проверить обновление</button>
+            <button class="settings-action" type="button" data-reload-app>Перезагрузить приложение</button>
+            <button class="settings-action settings-action--danger" type="button" data-reset-storage>
+              Сбросить данные
+            </button>
           </div>
-        </details>
+          <p class="settings-card__hint">
+            Данные хранятся локально. Очистка данных сайта в браузере может их удалить.
+          </p>
+        </div>
       </section>
     </main>
 
@@ -358,6 +356,9 @@
   <div class="update-toast" role="status" aria-live="polite" data-update-toast hidden>
     <span>Доступно обновление</span>
     <button class="update-toast__button" type="button" data-update-action>Обновить</button>
+    <button class="update-toast__button update-toast__button--ghost" type="button" data-update-dismiss>
+      Позже
+    </button>
   </div>
 
   <script type="module" src="core/app.js"></script>
