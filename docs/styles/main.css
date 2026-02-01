@@ -74,7 +74,7 @@ body {
 .update-toast {
   position: fixed;
   left: 50%;
-  bottom: calc(88px + var(--safe-area-bottom));
+  bottom: calc(16px + var(--safe-area-bottom) + 72px);
   transform: translateX(-50%);
   background: var(--surface);
   border: 1px solid var(--border);
