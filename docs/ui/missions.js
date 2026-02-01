@@ -1,8 +1,10 @@
 import { clampScore } from '../core/shield.js';
 import { MISSIONS } from '../modules/missions/data.js';
-import { getShieldSnapshot, getShieldSnapshotData, setShieldSnapshot, DEFAULT_SHIELD_TILES } from '../storage/shield.js';
+import { RADAR_DOMAINS } from '../modules/radar/data.js';
+import { getLatestRadarSnapshot } from '../storage/radar.js';
+import { getShieldSnapshot, getShieldSnapshotData, setShieldSnapshot } from '../storage/shield.js';
 import { getToneMode, onToneChange } from '../storage/tone.js';
-import { pickLine } from './copy.js';
+import { getCopyData, pickLine } from './copy.js';
 import { renderShield } from './shield.js';
 
 const STORAGE_KEY = 'life-shield-mission-state';
@@ -43,21 +45,42 @@ const hashString = (value) =>
 
 const getMissionById = (id) => MISSIONS.find((mission) => mission.id === id) ?? MISSIONS[0];
 
-const pickMissionForDate = (dateKey) => {
-  const index = hashString(dateKey) % MISSIONS.length;
-  return MISSIONS[index];
+const getTargetDomains = (snapshot) => {
+  if (!snapshot?.domainScores) {
+    return [];
+  }
+  const entries = RADAR_DOMAINS.map((domain) => ({
+    id: domain.id,
+    score: snapshot.domainScores?.[domain.id]?.score ?? 0,
+  }));
+  const sorted = entries.sort((a, b) => a.score - b.score);
+  return sorted.slice(0, 2).map((item) => item.id);
 };
 
-const buildMissionState = (dateKey, stored = {}) => {
+const getMissionPool = (targetDomains) => {
+  const pool = MISSIONS.filter((mission) => targetDomains.includes(mission.domainId));
+  return pool.length ? pool : MISSIONS;
+};
+
+const pickMissionForDate = (dateKey, targetDomains) => {
+  const pool = getMissionPool(targetDomains);
+  const key = `${dateKey}:${targetDomains.join('|')}`;
+  const index = pool.length ? hashString(key) % pool.length : 0;
+  return pool[index] ?? MISSIONS[0];
+};
+
+const buildMissionState = (dateKey, stored = {}, targetDomains = []) => {
   const xp = Number.isFinite(stored.xp) ? stored.xp : 0;
   const streak = Number.isFinite(stored.streak) ? stored.streak : 0;
   const lastCompletedDate = typeof stored.lastCompletedDate === 'string' ? stored.lastCompletedDate : null;
   const bonuses = stored.bonuses && typeof stored.bonuses === 'object' ? stored.bonuses : {};
-  const mission = pickMissionForDate(dateKey);
+  const mission = pickMissionForDate(dateKey, targetDomains);
 
   return {
     date: dateKey,
     missionId: mission.id,
+    targetDomains,
+    targetKey: targetDomains.join('|'),
     rerollsUsed: 0,
     rerollHistory: [mission.id],
     completed: false,
@@ -70,34 +93,34 @@ const buildMissionState = (dateKey, stored = {}) => {
 
 const loadMissionState = () => {
   const raw = localStorage.getItem(STORAGE_KEY);
+  const latestRadar = getLatestRadarSnapshot();
+  const targetDomains = getTargetDomains(latestRadar);
+  const targetKey = targetDomains.join('|');
   if (!raw) {
-    return buildMissionState(getDateKey());
+    return buildMissionState(getDateKey(), {}, targetDomains);
   }
   try {
     const parsed = JSON.parse(raw);
     const today = getDateKey();
     if (!parsed || typeof parsed !== 'object') {
-      return buildMissionState(today);
+      return buildMissionState(today, {}, targetDomains);
     }
-    if (parsed.date !== today) {
-      return buildMissionState(today, parsed);
+    if (parsed.date !== today || parsed.targetKey !== targetKey) {
+      return buildMissionState(today, parsed, targetDomains);
     }
     return {
-      ...buildMissionState(today, parsed),
+      ...buildMissionState(today, parsed, targetDomains),
       ...parsed,
     };
   } catch (error) {
     console.warn('Не удалось прочитать миссии дня', error);
-    return buildMissionState(getDateKey());
+    return buildMissionState(getDateKey(), {}, targetDomains);
   }
 };
 
 const saveMissionState = (state) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 };
-
-const getTileLabel = (tileId) =>
-  DEFAULT_SHIELD_TILES.find((tile) => tile.id === tileId)?.label ?? 'Плитка';
 
 const getBonusMeta = (state, tileId) => {
   const stored = state.bonuses?.[tileId] ?? { total: 0, count: 0 };
@@ -166,10 +189,11 @@ const applyCompletion = (state, mission) => {
 };
 
 const pickRerollMission = (state) => {
+  const pool = getMissionPool(state.targetDomains ?? []);
   const used = new Set(state.rerollHistory ?? []);
-  const available = MISSIONS.filter((mission) => !used.has(mission.id));
-  const pool = available.length ? available : MISSIONS;
-  return pool[Math.floor(Math.random() * pool.length)];
+  const available = pool.filter((mission) => !used.has(mission.id));
+  const finalPool = available.length ? available : pool;
+  return finalPool[Math.floor(Math.random() * finalPool.length)];
 };
 
 const updateLine = async (lineElement) => {
@@ -193,6 +217,7 @@ export const initMissions = () => {
   const detail = screen.querySelector('[data-mission-detail]');
   const tile = screen.querySelector('[data-mission-tile]');
   const bonus = screen.querySelector('[data-mission-bonus]');
+  const why = screen.querySelector('[data-mission-why]');
   const line = screen.querySelector('[data-mission-line]');
   const xp = screen.querySelector('[data-mission-xp]');
   const streak = screen.querySelector('[data-mission-streak]');
@@ -201,18 +226,23 @@ export const initMissions = () => {
   const completeButton = screen.querySelector('[data-mission-complete]');
   const rerollButton = screen.querySelector('[data-mission-reroll]');
 
-  if (!title || !detail || !tile || !bonus || !xp || !streak || !status || !rerolls || !completeButton || !rerollButton) {
+  if (!title || !detail || !tile || !bonus || !why || !xp || !streak || !status || !rerolls || !completeButton || !rerollButton) {
     return;
   }
 
   let state = loadMissionState();
 
-  const render = () => {
+  const render = async () => {
     const mission = getMissionById(state.missionId);
     const bonusMeta = getBonusMeta(state, mission.tileId);
+    const copyData = await getCopyData();
+    const domainLabel = copyData?.radar?.domains?.[mission.domainId]?.label ?? mission.domainId ?? 'Домен';
+    const whyCopy = copyData?.radar?.missionWhy ?? 'Почему эта миссия: поддержать домен «{domain}».';
+
     title.textContent = mission.title;
     detail.textContent = mission.detail;
-    tile.textContent = `Плитка: ${getTileLabel(mission.tileId)}`;
+    tile.textContent = `Домен: ${domainLabel}`;
+    why.textContent = whyCopy.replace('{domain}', domainLabel);
     bonus.textContent = `Бонус: +${bonusMeta.applied.toFixed(1)} (итого +${bonusMeta.nextTotal.toFixed(1)}/${BONUS_CAP})`;
     xp.textContent = state.xp.toString();
     streak.textContent = state.streak.toString();
@@ -239,7 +269,7 @@ export const initMissions = () => {
     const mission = getMissionById(state.missionId);
     state = applyCompletion(state, mission);
     saveMissionState(state);
-    render();
+    void render();
     void updateLine(line);
   });
 
@@ -257,11 +287,11 @@ export const initMissions = () => {
       rerollHistory: [...(state.rerollHistory ?? []), nextMission.id],
     };
     saveMissionState(state);
-    render();
+    void render();
     void updateLine(line);
   });
 
-  render();
+  void render();
   void updateLine(line);
   onToneChange(() => {
     void updateLine(line);

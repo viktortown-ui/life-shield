@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'life-shield-v2';
+const CACHE_VERSION = 'life-shield-v3';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const HTML_CACHE = `${CACHE_VERSION}-html`;
 
@@ -17,12 +17,15 @@ const PRECACHE_ASSETS = [
   './ui/tone-settings.js',
   './ui/shield.js',
   './ui/snapshot.js',
+  './ui/radar.js',
   './ui/stress.js',
   './ui/history.js',
   './ui/pwa.js',
   './storage/tone.js',
   './storage/shield.js',
+  './storage/radar.js',
   './storage/stress.js',
+  './modules/radar/data.js',
   './modules/missions/data.js',
   './assets/copy/ru.json',
   './assets/icons/icon-192.svg',

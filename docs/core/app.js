@@ -11,6 +11,7 @@ import { initPwa } from '../ui/pwa.js';
 import { initServiceSettings } from '../ui/service-settings.js';
 import { initHelp } from '../ui/help.js';
 import { initGuide } from '../ui/guide.js';
+import { initRadar } from '../ui/radar.js';
 
 initTheme();
 initNavigation();
@@ -19,6 +20,7 @@ initToneSettings();
 initCopy();
 initShield();
 initSnapshot();
+initRadar();
 initStress();
 initHistory();
 initPwa();
