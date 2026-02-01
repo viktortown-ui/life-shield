@@ -52,6 +52,14 @@
             <p class="shield__goal-title" data-shield-goal-title></p>
             <p class="shield__goal-step" data-shield-goal-step></p>
           </div>
+          <div class="shield__pro">
+            <div>
+              <p class="shield__goal-label" data-radar-pro-label></p>
+              <p class="shield__goal-title" data-radar-pro-title></p>
+              <p class="shield__goal-step" data-radar-pro-subtitle></p>
+            </div>
+            <button class="shield__snapshot-button" type="button" data-open-radar></button>
+          </div>
         </div>
       </section>
       <section class="screen screen--overlay" data-screen="snapshot">
@@ -236,6 +244,82 @@
           </div>
         </div>
       </section>
+      <section class="screen" data-screen="radar">
+        <div class="radar">
+          <header class="radar__header">
+            <button class="radar__back" type="button" data-close-radar>← Назад</button>
+            <div>
+              <p class="radar__eyebrow" data-radar-eyebrow></p>
+              <h2 data-radar-title></h2>
+              <p class="radar__subtitle" data-radar-subtitle></p>
+            </div>
+          </header>
+          <div class="radar__actions">
+            <button class="radar__primary" type="button" data-open-radar-snapshot></button>
+            <p class="radar__meta">Последний снимок: <span data-radar-date></span></p>
+          </div>
+          <div class="radar__empty" data-radar-empty>
+            <h3 data-radar-empty-title></h3>
+            <p data-radar-empty-text></p>
+          </div>
+          <div class="radar__content" data-radar-content hidden>
+            <div class="radar__chart-card">
+              <div class="radar__chart" data-radar-chart></div>
+              <div class="radar__total-card">
+                <p class="radar__total-label" data-radar-total-label></p>
+                <p class="radar__total-value"><span data-radar-total>0</span><span>/100</span></p>
+              </div>
+            </div>
+            <div class="radar__domains" data-radar-domains></div>
+          </div>
+          <div class="radar__interpretation">
+            <button class="radar__interpretation-button" type="button" data-radar-interpretation-toggle></button>
+            <div class="radar__interpretation-body" data-radar-interpretation hidden>
+              <div class="radar__interpretation-row">
+                <div>
+                  <p class="radar__interpretation-title" data-radar-weak-title></p>
+                  <ul class="radar__pill-list" data-radar-weak></ul>
+                </div>
+                <div>
+                  <p class="radar__interpretation-title" data-radar-strong-title></p>
+                  <ul class="radar__pill-list" data-radar-strong></ul>
+                </div>
+              </div>
+              <div class="radar__interpretation-row">
+                <div>
+                  <p class="radar__interpretation-title" data-radar-why-title></p>
+                  <ul class="radar__list" data-radar-why></ul>
+                </div>
+                <div>
+                  <p class="radar__interpretation-title" data-radar-steps-title></p>
+                  <ul class="radar__list" data-radar-steps></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="screen screen--overlay" data-screen="radar-snapshot">
+        <div class="radar-snapshot">
+          <header class="radar-snapshot__header">
+            <button class="radar-snapshot__back" type="button" data-close-radar-snapshot>← Назад</button>
+            <div>
+              <p class="radar-snapshot__eyebrow" data-radar-snapshot-eyebrow></p>
+              <h2 class="radar-snapshot__title" data-radar-snapshot-title></h2>
+              <p class="radar-snapshot__subtitle" data-radar-snapshot-subtitle></p>
+            </div>
+          </header>
+          <form class="radar-snapshot__form" data-radar-form>
+            <div data-radar-questions></div>
+            <details class="radar-snapshot__advanced" data-radar-advanced>
+              <summary data-radar-advanced-summary></summary>
+              <p class="radar-snapshot__advanced-hint" data-radar-advanced-hint></p>
+              <div class="radar-snapshot__weights" data-radar-weights></div>
+            </details>
+            <button class="radar-snapshot__submit" type="submit" data-radar-submit></button>
+          </form>
+        </div>
+      </section>
       <section class="screen" data-screen="missions">
         <h2>Миссии</h2>
         <p class="screen__placeholder" data-copy="missionsToasts"></p>
@@ -263,6 +347,7 @@
               <span class="missions-day__tag" data-mission-bonus></span>
             </div>
             <p class="missions-day__line" data-mission-line></p>
+            <p class="missions-day__why" data-mission-why></p>
             <div class="missions-day__footer">
               <span class="missions-day__status" data-mission-status></span>
               <span class="missions-day__rerolls" data-mission-rerolls></span>

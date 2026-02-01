@@ -1,6 +1,6 @@
 const SCREEN_SELECTOR = '[data-screen]';
 const NAV_SELECTOR = '.bottom-nav__item';
-const OVERLAY_SCREENS = new Set(['snapshot', 'guide']);
+const OVERLAY_SCREENS = new Set(['snapshot', 'guide', 'radar-snapshot']);
 
 export const setActiveScreen = (target) => {
   const screens = document.querySelectorAll(SCREEN_SELECTOR);
