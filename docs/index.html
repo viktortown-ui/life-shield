@@ -111,21 +111,65 @@
             <div class="snapshot__section">
               <h3 class="snapshot__section-title">Состояние</h3>
               <div class="snapshot__sliders">
-                <label class="snapshot__slider">
-                  <span class="snapshot__label">Энергия: сколько сил на неделю</span>
-                  <input type="range" name="energy" min="0" max="10" step="1" value="6" />
-                  <span class="snapshot__value" data-range-value>6</span>
-                </label>
-                <label class="snapshot__slider">
-                  <span class="snapshot__label">Опора: на кого можно опереться</span>
-                  <input type="range" name="support" min="0" max="10" step="1" value="6" />
-                  <span class="snapshot__value" data-range-value>6</span>
-                </label>
-                <label class="snapshot__slider">
-                  <span class="snapshot__label">Гибкость: как быстро адаптируюсь</span>
-                  <input type="range" name="flexibility" min="0" max="10" step="1" value="6" />
-                  <span class="snapshot__value" data-range-value>6</span>
-                </label>
+                <div class="snapshot__slider">
+                  <span class="snapshot__label" id="snapshot-energy-label">Энергия: сколько сил на неделю</span>
+                  <div class="snapshot__range">
+                    <input
+                      type="range"
+                      name="energy"
+                      min="0"
+                      max="10"
+                      step="1"
+                      value="6"
+                      aria-labelledby="snapshot-energy-label"
+                    />
+                    <span class="snapshot__value" data-range-value>6</span>
+                  </div>
+                  <details class="snapshot__hints" data-snapshot-hints="energy">
+                    <summary>Подсказки к шкале</summary>
+                    <ul class="snapshot__hints-list"></ul>
+                  </details>
+                </div>
+                <div class="snapshot__slider">
+                  <span class="snapshot__label" id="snapshot-support-label">Опора: на кого можно опереться</span>
+                  <div class="snapshot__range">
+                    <input
+                      type="range"
+                      name="support"
+                      min="0"
+                      max="10"
+                      step="1"
+                      value="6"
+                      aria-labelledby="snapshot-support-label"
+                    />
+                    <span class="snapshot__value" data-range-value>6</span>
+                  </div>
+                  <details class="snapshot__hints" data-snapshot-hints="support">
+                    <summary>Подсказки к шкале</summary>
+                    <ul class="snapshot__hints-list"></ul>
+                  </details>
+                </div>
+                <div class="snapshot__slider">
+                  <span class="snapshot__label" id="snapshot-flexibility-label"
+                    >Гибкость: как быстро адаптируюсь</span
+                  >
+                  <div class="snapshot__range">
+                    <input
+                      type="range"
+                      name="flexibility"
+                      min="0"
+                      max="10"
+                      step="1"
+                      value="6"
+                      aria-labelledby="snapshot-flexibility-label"
+                    />
+                    <span class="snapshot__value" data-range-value>6</span>
+                  </div>
+                  <details class="snapshot__hints" data-snapshot-hints="flexibility">
+                    <summary>Подсказки к шкале</summary>
+                    <ul class="snapshot__hints-list"></ul>
+                  </details>
+                </div>
               </div>
             </div>
 

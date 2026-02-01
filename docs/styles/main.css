@@ -477,6 +477,12 @@ body {
   font-size: 13px;
 }
 
+.snapshot__range {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .snapshot__slider input[type="range"] {
   width: 100%;
 }
@@ -484,6 +490,44 @@ body {
 .snapshot__value {
   font-size: 14px;
   font-weight: 600;
+}
+
+.snapshot__hints {
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.snapshot__hints summary {
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.snapshot__hints[open] summary {
+  margin-bottom: 6px;
+}
+
+.snapshot__hints-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.snapshot__hint {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 8px;
+}
+
+.snapshot__hint-range {
+  font-weight: 600;
+  color: var(--text);
 }
 
 .snapshot__submit {

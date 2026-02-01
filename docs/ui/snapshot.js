@@ -5,6 +5,7 @@ import {
   getShieldSnapshotData,
   setShieldSnapshot,
 } from '../storage/shield.js';
+import { getCopyData } from './copy.js';
 import { setActiveScreen } from './navigation.js';
 import { renderShield } from './shield.js';
 
@@ -76,6 +77,39 @@ const updateRangeValue = (input, output) => {
   }
 };
 
+const renderSliderHints = async (screen) => {
+  const copyData = await getCopyData();
+  const anchors = copyData.snapshotAnchors ?? {};
+  const wrappers = Array.from(screen.querySelectorAll('[data-snapshot-hints]'));
+  wrappers.forEach((wrapper) => {
+    const key = wrapper.dataset.snapshotHints;
+    if (!key) {
+      return;
+    }
+    const list = wrapper.querySelector('.snapshot__hints-list');
+    const items = Array.isArray(anchors[key]) ? anchors[key] : [];
+    if (!list) {
+      return;
+    }
+    list.innerHTML = '';
+    items.forEach((item) => {
+      const row = document.createElement('li');
+      row.className = 'snapshot__hint';
+      const range = document.createElement('span');
+      range.className = 'snapshot__hint-range';
+      range.textContent = item.range;
+      const text = document.createElement('span');
+      text.className = 'snapshot__hint-text';
+      text.textContent = item.text;
+      row.append(range, text);
+      list.appendChild(row);
+    });
+    if (!items.length) {
+      wrapper.hidden = true;
+    }
+  });
+};
+
 const hydrateForm = (form, snapshot) => {
   if (!snapshot) {
     return;
@@ -132,6 +166,7 @@ export const initSnapshot = () => {
     updateRangeValue(input, output);
     input.addEventListener('input', () => updateRangeValue(input, output));
   });
+  void renderSliderHints(screen);
 
   const toggleCreditField = () => {
     const isChecked = creditToggle?.checked ?? false;
