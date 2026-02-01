@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'life-shield-v1';
+const CACHE_VERSION = 'life-shield-v2';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const HTML_CACHE = `${CACHE_VERSION}-html`;
 
@@ -79,6 +79,32 @@ const networkFirst = async (request) => {
   }
 };
 
+const isAssetRequest = (request) => {
+  const url = new URL(request.url);
+  return ['.css', '.js', '.json', '.svg'].some((ext) => url.pathname.endsWith(ext));
+};
+
+const staleWhileRevalidate = async (event) => {
+  const { request } = event;
+  const cache = await caches.open(STATIC_CACHE);
+  const cached = await cache.match(request);
+  const fetchAndCache = fetch(request)
+    .then((response) => {
+      if (response && response.ok) {
+        cache.put(request, response.clone());
+      }
+      return response;
+    })
+    .catch(() => null);
+
+  if (cached) {
+    event.waitUntil(fetchAndCache);
+    return cached;
+  }
+
+  return fetchAndCache.then((response) => response || cached);
+};
+
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   if (request.method !== 'GET') {
@@ -88,6 +114,11 @@ self.addEventListener('fetch', (event) => {
   const acceptsHtml = request.headers.get('accept')?.includes('text/html');
   if (request.mode === 'navigate' || acceptsHtml) {
     event.respondWith(networkFirst(request));
+    return;
+  }
+
+  if (isAssetRequest(request)) {
+    event.respondWith(staleWhileRevalidate(event));
     return;
   }
 
