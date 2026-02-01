@@ -5,24 +5,36 @@ const clearAppStorage = () => {
   keys.forEach((key) => localStorage.removeItem(key));
 };
 
-const getServiceWorkerStatus = () => {
-  if (!('serviceWorker' in navigator)) {
-    return 'не поддерживается';
-  }
-  return navigator.serviceWorker.controller ? 'активен' : 'не активен';
-};
-
 export const initServiceSettings = () => {
   const resetButton = document.querySelector('[data-reset-storage]');
   if (resetButton) {
     resetButton.addEventListener('click', () => {
+      const shouldReset = window.confirm('Сбросить только данные Life Shield?');
+      if (!shouldReset) {
+        return;
+      }
       clearAppStorage();
       window.location.reload();
     });
   }
 
-  const status = document.querySelector('[data-sw-status]');
-  if (status) {
-    status.textContent = getServiceWorkerStatus();
+  const reloadButton = document.querySelector('[data-reload-app]');
+  if (reloadButton) {
+    reloadButton.addEventListener('click', () => {
+      window.location.reload();
+    });
+  }
+
+  const updateButton = document.querySelector('[data-check-update]');
+  if (updateButton) {
+    updateButton.addEventListener('click', async () => {
+      if (!('serviceWorker' in navigator)) {
+        return;
+      }
+      const registration = await navigator.serviceWorker.getRegistration();
+      if (registration) {
+        await registration.update();
+      }
+    });
   }
 };

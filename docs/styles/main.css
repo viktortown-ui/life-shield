@@ -105,15 +105,15 @@ body {
   border-radius: 999px;
   padding: 10px 14px;
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
-  display: inline-flex;
+  display: none;
   align-items: center;
   gap: 12px;
   font-size: 13px;
   z-index: 40;
 }
 
-.update-toast[hidden] {
-  display: none !important;
+.update-toast:not([hidden]) {
+  display: inline-flex;
 }
 
 .update-toast__button {
@@ -122,6 +122,11 @@ body {
   background: var(--accent);
   color: #ffffff;
   font-size: 12px;
+}
+
+.update-toast__button--ghost {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
 }
 
 .theme-toggle {
@@ -1220,6 +1225,13 @@ body {
 
 .settings-card__title {
   font-weight: 600;
+}
+
+.settings-card__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
 }
 
 .settings-card__row {
