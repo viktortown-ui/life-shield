@@ -14,6 +14,10 @@ const loadCopy = async () => {
   return cachedCopy;
 };
 
+export const getCopyData = async () => {
+  return loadCopy();
+};
+
 export const pickLine = async (listName, toneMode) => {
   const data = await loadCopy();
   const list = Array.isArray(data[listName]) ? data[listName] : [];

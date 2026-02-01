@@ -1,5 +1,6 @@
 import { getShieldSnapshotData } from '../storage/shield.js';
-import { addStressRun, getStressHistory } from '../storage/stress.js';
+import { addStressRun, addStressTokens, getStressHistory, getStressTokens } from '../storage/stress.js';
+import { getCopyData } from './copy.js';
 import { setActiveScreen } from './navigation.js';
 
 const SCENARIOS = [
@@ -51,6 +52,36 @@ const getRunway = (reserve, expenses) => {
     return Number.POSITIVE_INFINITY;
   }
   return reserve / expenses;
+};
+
+const getRankAndDanger = (runway) => {
+  if (!Number.isFinite(runway) || runway >= 4) {
+    return { rank: 'Золото', danger: 'Зелёная зона' };
+  }
+  if (runway >= 2) {
+    return { rank: 'Серебро', danger: 'Жёлтая зона' };
+  }
+  return { rank: 'Бронза', danger: 'Красная зона' };
+};
+
+const getGuidanceList = (result, copyData) => {
+  const guidance = copyData?.stressGuidance ?? {};
+  let key = 'stable';
+  if (result.income <= 0) {
+    key = 'noIncome';
+  } else if (result.runway < 2) {
+    key = 'critical';
+  } else if (result.runway < 4) {
+    key = 'warning';
+  }
+  const list = Array.isArray(guidance[key]) ? guidance[key] : [];
+  return list.slice(0, 2);
+};
+
+const buildMeta = (result, copyData) => {
+  const status = getRankAndDanger(result.runway);
+  const guidance = getGuidanceList(result, copyData);
+  return { ...status, guidance };
 };
 
 const describeBreakdown = ({ income, expenses, runway }) => {
@@ -121,7 +152,7 @@ const buildResult = (snapshot, scenario) => {
   };
 };
 
-const renderBaseline = (container, snapshot) => {
+const renderBaseline = (container, snapshot, copyData) => {
   if (!container) {
     return;
   }
@@ -136,6 +167,9 @@ const renderBaseline = (container, snapshot) => {
     `;
     return;
   }
+  const baselineResult = buildResult(snapshot, SCENARIOS[0]);
+  const baselineMeta = buildMeta(baselineResult, copyData);
+  const guidanceItems = baselineMeta.guidance.map((tip) => `<li>${tip}</li>`).join('');
 
   container.innerHTML = `
     <div class="stress__baseline-card">
@@ -153,6 +187,24 @@ const renderBaseline = (container, snapshot) => {
           <p class="stress__baseline-label">Доход/мес</p>
           <strong>${formatNumber(snapshot.income)} ₽</strong>
         </div>
+        <div>
+          <p class="stress__baseline-label">Runway</p>
+          <strong>${formatMonths(baselineResult.runway)} мес.</strong>
+        </div>
+      </div>
+      <div class="stress__baseline-meta">
+        <div>
+          <p class="stress__meta-label">Ранг живучести</p>
+          <strong data-stress-baseline-rank>${baselineMeta.rank}</strong>
+        </div>
+        <div>
+          <p class="stress__meta-label">Уровень опасности</p>
+          <strong data-stress-baseline-danger>${baselineMeta.danger}</strong>
+        </div>
+      </div>
+      <div class="stress__baseline-actions">
+        <p>Что делать:</p>
+        <ul data-stress-baseline-guidance>${guidanceItems}</ul>
       </div>
     </div>
   `;
@@ -182,20 +234,37 @@ const createScenarioCard = (scenario) => {
     <div class="stress__result">
       <p class="stress__result-runway">Runway: <strong data-stress-runway>—</strong> мес.</p>
       <p class="stress__result-breakdown" data-stress-breakdown>Что сломалось: —</p>
+      <div class="stress__result-meta">
+        <div>
+          <p class="stress__meta-label">Ранг живучести</p>
+          <strong data-stress-rank>—</strong>
+        </div>
+        <div>
+          <p class="stress__meta-label">Уровень опасности</p>
+          <strong data-stress-danger>—</strong>
+        </div>
+      </div>
       <div class="stress__result-levers">
         <p>Быстрые рычаги:</p>
         <ul data-stress-levers></ul>
+      </div>
+      <div class="stress__result-actions">
+        <p>Что делать:</p>
+        <ul data-stress-guidance></ul>
       </div>
     </div>
   `;
   return card;
 };
 
-const updateScenarioCard = (card, result) => {
+const updateScenarioCard = (card, result, meta) => {
   const runwayValue = card.querySelector('[data-stress-runway]');
   const breakdown = card.querySelector('[data-stress-breakdown]');
   const leversList = card.querySelector('[data-stress-levers]');
   const bar = card.querySelector('[data-stress-bar]');
+  const rankValue = card.querySelector('[data-stress-rank]');
+  const dangerValue = card.querySelector('[data-stress-danger]');
+  const guidanceList = card.querySelector('[data-stress-guidance]');
 
   if (runwayValue) {
     runwayValue.textContent = formatMonths(result.runway);
@@ -209,6 +278,20 @@ const updateScenarioCard = (card, result) => {
       const item = document.createElement('li');
       item.textContent = lever;
       leversList.appendChild(item);
+    });
+  }
+  if (rankValue) {
+    rankValue.textContent = meta.rank;
+  }
+  if (dangerValue) {
+    dangerValue.textContent = meta.danger;
+  }
+  if (guidanceList) {
+    guidanceList.innerHTML = '';
+    meta.guidance.forEach((tip) => {
+      const item = document.createElement('li');
+      item.textContent = tip;
+      guidanceList.appendChild(item);
     });
   }
   if (bar) {
@@ -257,25 +340,47 @@ export const initStress = () => {
   const scenariosWrapper = screen.querySelector('[data-stress-scenarios]');
   const runAllButton = screen.querySelector('[data-stress-run-all]');
   const historyList = screen.querySelector('[data-stress-history-list]');
+  const tokensValue = screen.querySelector('[data-stress-tokens]');
 
   const snapshot = getShieldSnapshotData();
-  renderBaseline(baseline, snapshot);
+  const copyPromise = getCopyData();
+
+  const updateTokens = (value) => {
+    if (tokensValue) {
+      tokensValue.textContent = String(value);
+    }
+  };
+
+  updateTokens(getStressTokens());
+
+  const applyBaseline = async () => {
+    const copyData = await copyPromise;
+    renderBaseline(baseline, snapshot, copyData);
+  };
+
+  void applyBaseline();
 
   const cards = new Map();
+  const runScenario = async (scenario, card) => {
+    if (!snapshot) {
+      setActiveScreen('snapshot');
+      return;
+    }
+    const result = buildResult(snapshot, scenario);
+    const copyData = await copyPromise;
+    const meta = buildMeta(result, copyData);
+    updateScenarioCard(card, result, meta);
+    addStressRun(result);
+    updateTokens(addStressTokens(1));
+  };
 
   if (scenariosWrapper) {
     scenariosWrapper.innerHTML = '';
     SCENARIOS.forEach((scenario) => {
       const card = createScenarioCard(scenario);
       const runButton = card.querySelector('[data-stress-run]');
-      runButton?.addEventListener('click', () => {
-        if (!snapshot) {
-          setActiveScreen('snapshot');
-          return;
-        }
-        const result = buildResult(snapshot, scenario);
-        updateScenarioCard(card, result);
-        addStressRun(result);
+      runButton?.addEventListener('click', async () => {
+        await runScenario(scenario, card);
         renderHistory(historyList);
       });
       scenariosWrapper.appendChild(card);
@@ -283,20 +388,18 @@ export const initStress = () => {
     });
   }
 
-  runAllButton?.addEventListener('click', () => {
+  runAllButton?.addEventListener('click', async () => {
     if (!snapshot) {
       setActiveScreen('snapshot');
       return;
     }
-    SCENARIOS.forEach((scenario) => {
+    for (const scenario of SCENARIOS) {
       const card = cards.get(scenario.id);
       if (!card) {
-        return;
+        continue;
       }
-      const result = buildResult(snapshot, scenario);
-      updateScenarioCard(card, result);
-      addStressRun(result);
-    });
+      await runScenario(scenario, card);
+    }
     renderHistory(historyList);
   });
 
