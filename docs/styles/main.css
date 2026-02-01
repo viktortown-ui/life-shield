@@ -71,6 +71,30 @@ body {
   gap: 6px;
 }
 
+@media (max-width: 420px) {
+  .app__header {
+    padding: calc(16px + var(--safe-area-top))
+      calc(16px + var(--safe-area-right)) 12px
+      calc(16px + var(--safe-area-left));
+    gap: 12px;
+  }
+
+  .app__eyebrow {
+    display: none;
+  }
+
+  .app__title {
+    font-size: 18px;
+    line-height: 1.2;
+  }
+
+  .app__toast {
+    margin-top: 4px;
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+}
+
 .update-toast {
   position: fixed;
   left: 50%;
@@ -994,6 +1018,18 @@ body {
   font-weight: 600;
 }
 
+.settings-card__row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.settings-card__hint {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+
 .tone-toggle {
   display: flex;
   gap: 8px;
@@ -1023,6 +1059,10 @@ body {
 .settings-card__preview {
   font-size: 14px;
   color: var(--text);
+}
+
+.theme-toggle--settings {
+  align-self: flex-start;
 }
 
 .bottom-nav {

@@ -17,10 +17,6 @@
         <h1 class="app__title">Личный щит устойчивости</h1>
         <p class="app__toast" data-copy="resultsToasts"></p>
       </div>
-      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Переключить тему">
-        <span aria-hidden="true">🌓</span>
-        Тема
-      </button>
     </header>
 
     <main class="app__content">
@@ -237,6 +233,16 @@
       </section>
       <section class="screen" data-screen="settings">
         <h2>Настройки</h2>
+        <div class="settings-card">
+          <p class="settings-card__title">Тема</p>
+          <div class="settings-card__row">
+            <p class="settings-card__hint">Переключай светлую и тёмную тему интерфейса.</p>
+            <button class="theme-toggle theme-toggle--settings" id="theme-toggle" type="button" aria-label="Переключить тему">
+              <span aria-hidden="true">🌓</span>
+              Тема
+            </button>
+          </div>
+        </div>
         <div class="settings-card">
           <p class="settings-card__title">Тон коммуникации</p>
           <div class="tone-toggle" role="radiogroup" aria-label="Тон сообщений">
