@@ -614,10 +614,28 @@ body {
   gap: 12px;
 }
 
+.stress__header-main {
+  display: grid;
+  gap: 8px;
+}
+
 .stress__intro {
   margin: 0;
   color: var(--muted);
   font-size: 14px;
+}
+
+.stress__tokens {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .stress__snapshot-button {
@@ -653,6 +671,12 @@ body {
 .stress__baseline-grid {
   display: grid;
   gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.stress__baseline-meta {
+  display: grid;
+  gap: 8px;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
 }
 
@@ -761,12 +785,40 @@ body {
   color: var(--muted);
 }
 
+.stress__result-meta {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.stress__meta-label {
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
 .stress__result-levers p {
   margin: 0 0 6px;
   font-weight: 600;
 }
 
 .stress__result-levers ul {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+}
+
+.stress__baseline-actions p,
+.stress__result-actions p {
+  margin: 0 0 6px;
+  font-weight: 600;
+}
+
+.stress__baseline-actions ul,
+.stress__result-actions ul {
   margin: 0;
   padding-left: 18px;
   display: grid;
