@@ -443,6 +443,14 @@ body {
   margin: 0;
 }
 
+@media (max-width: 480px) {
+  .shield-card__badge {
+    position: static;
+    align-self: flex-start;
+    margin-bottom: 4px;
+  }
+}
+
 .missions-day {
   display: flex;
   flex-direction: column;
