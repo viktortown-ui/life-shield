@@ -88,6 +88,10 @@ body {
   z-index: 40;
 }
 
+.update-toast[hidden] {
+  display: none !important;
+}
+
 .update-toast__button {
   padding: 6px 12px;
   border-radius: 999px;
