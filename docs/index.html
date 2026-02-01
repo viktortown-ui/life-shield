@@ -235,13 +235,18 @@
         <h2>Настройки</h2>
         <div class="settings-card">
           <p class="settings-card__title">Тема</p>
-          <div class="settings-card__row">
-            <p class="settings-card__hint">Переключай светлую и тёмную тему интерфейса.</p>
-            <button class="theme-toggle theme-toggle--settings" id="theme-toggle" type="button" aria-label="Переключить тему">
-              <span aria-hidden="true">🌓</span>
-              Тема
+          <p class="settings-card__hint">Выбирай тему интерфейса, чтобы глазам было комфортно.</p>
+          <div class="theme-toggle__group" role="radiogroup" aria-label="Тема интерфейса">
+            <button class="theme-toggle__button" type="button" data-theme-option="light" aria-pressed="false">
+              Светлая
+            </button>
+            <button class="theme-toggle__button" type="button" data-theme-option="dark" aria-pressed="false">
+              Тёмная
             </button>
           </div>
+          <p class="settings-card__current">
+            Сейчас: <strong data-theme-label>Светлая</strong>
+          </p>
         </div>
         <div class="settings-card">
           <p class="settings-card__title">Тон коммуникации</p>
@@ -260,6 +265,21 @@
             Пример: <span data-copy="onboardingJabs"></span>
           </p>
         </div>
+        <details class="settings-details">
+          <summary class="settings-details__summary">PRO: Сервис</summary>
+          <div class="settings-details__body">
+            <div class="settings-card">
+              <p class="settings-card__title">Сервис</p>
+              <p class="settings-card__hint">Сбросит только данные Life Shield, не трогая другие сайты.</p>
+              <button class="settings-action settings-action--danger" type="button" data-reset-storage>
+                Сбросить данные
+              </button>
+              <p class="settings-card__hint settings-card__hint--inline">
+                Диагностика: <span data-sw-status>—</span>
+              </p>
+            </div>
+          </div>
+        </details>
       </section>
     </main>
 

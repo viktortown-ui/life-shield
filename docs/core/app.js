@@ -8,6 +8,7 @@ import { initSnapshot } from '../ui/snapshot.js';
 import { initStress } from '../ui/stress.js';
 import { initHistory } from '../ui/history.js';
 import { initPwa } from '../ui/pwa.js';
+import { initServiceSettings } from '../ui/service-settings.js';
 
 initTheme();
 initNavigation();
@@ -19,3 +20,4 @@ initSnapshot();
 initStress();
 initHistory();
 initPwa();
+initServiceSettings();
